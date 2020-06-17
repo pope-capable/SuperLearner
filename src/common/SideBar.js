@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Progress, Avatar } from 'antd';
 import "../styles/sidebar.css"
 import { getWithHeaders } from '../utils/Externalcalls';
+import pro from "../assets/images/project.png"
+import models from "../assets/images/tred.png"
+import fold from "../assets/images/folder.png"
+import process from "../assets/images/proc.png"
+import team from "../assets/images/team.png"
 
-function SideBar() {
 
-
+function SideBar(props) {
     const user = JSON.parse(localStorage.getItem("user"))
     // initialize state
     const initialState = {
@@ -26,6 +30,20 @@ function SideBar() {
         })
       }, [])
 
+      function setActive(data) {
+          if(data == props.active){
+              var style = "active"
+          }
+          else{
+              var style = "inactive"
+          }
+          return style
+      }
+
+      function moveAround(data) {
+        window.location.href = data
+      }
+
     return (
         <div className = "sideBar">
             <div className = "user_details">
@@ -36,10 +54,17 @@ function SideBar() {
                 <div className = "user-row-short">
                     <Progress showInfo = {false} strokeColor={{'0%': '#91d5ff', '100%': '#003a8c', }} percent={data.disk.percentageUsed}/>
                 </div>
-                {
-                    console.log("MEEK", data.disk.diskRecord)
-                }
                 <div className = "mem-data">{data.isLoading ? "Analyzing memory usage..." : data.disk.percentageUsed + "% of storage exhausted"}</div>
+            </div>
+            <div className = "lower-side">
+                <div className = "sections">
+                    <div onClick = {e => {moveAround("/dashboard")}} className = {setActive(1)}><img className = "img" src = {pro} />Projects</div>
+                    <div onClick = {e => {moveAround("/models")}} className = {setActive(2)}><img className = "img" src = {models} />Models</div>
+                    <div onClick = {e => {moveAround("/folders")}} className = {setActive(3)}><img className = "img" src = {fold} />Folders</div>
+                    <div onClick = {e => {moveAround("/processes")}} className = {setActive(4)}><img className = "img" src = {process} />Processes</div>
+                    <div onClick = {e => {moveAround("/teams")}} className = {setActive(5)}><img className = "img" src = {team} />Teams</div>
+                </div>
+                <div>Updates</div>
             </div>
         </div>
     )

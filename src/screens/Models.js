@@ -2,13 +2,13 @@ import React from 'react'
 import SideBar from '../common/SideBar'
 import "../styles/projects.css"
 
-function Projects() {
+function Models() {
     return (
         <div className = "page">
-            <SideBar active = {1} />
-            Project
+            <SideBar active = {2} />
+            Models
         </div>
     )
 }
 
-export default Projects
+export default Models
