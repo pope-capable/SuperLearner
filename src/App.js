@@ -4,6 +4,11 @@ import {BrowserRouter as Router, withRouter, Route, Switch} from "react-router-d
 import Home from "../src/screens/Home"
 import Entry from "../src/screens/Entry"
 import Dashboard from "../src/screens/Projects"
+import Models from "../src/screens/Models"
+import Folders from "../src/screens/Folders"
+import Processes from "../src/screens/Processes"
+import Teams from "../src/screens/Team"
+
 import './App.css';
 import reducer from './utils/reducer'
 import { AuthenticationContext } from "../src/utils/reducer";
@@ -25,6 +30,10 @@ function App() {
             <Route exact path = "/" component = {Home}/>
             <Route exact path = "/entry" component = {Entry} />
             <Route exact path = "/dashboard" component = {Dashboard} />
+            <Route exact path = "/models" component = {Models} />
+            <Route exact path = "/folders" component = {Folders} />
+            <Route exact path = "/processes" component = {Processes} />
+            <Route exact path = "/teams" component = {Teams} />
           </Switch>
         </Router>
       </AuthenticationContext.Provider>

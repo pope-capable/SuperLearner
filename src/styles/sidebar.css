@@ -40,3 +40,30 @@
     color: #BABABA;
     text-align: right;
 }
+
+.lower-side {
+    margin: 50px 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.sections {
+    padding: 0 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    max-width: 80px;
+}
+
+.img {
+    max-width: 30px;
+}
+
+.active {
+    margin: 20px 0;
+}
+
+.inactive {
+    margin: 20px 0;
+    opacity: 0.4;
+}
