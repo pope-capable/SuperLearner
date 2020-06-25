@@ -17,7 +17,7 @@ function SideBar(props) {
         disk: {},
         user_name: "",
         email: "",
-        isLoading: false,
+        isLoading: true,
         errorMessage: null
       };
 
@@ -44,6 +44,15 @@ function SideBar(props) {
         window.location.href = data
       }
 
+      function colorNotification(data) {
+          if(data.type == "project"){
+              var useClass = "project-note"
+          }else if(data.type == "team"){
+              var useClass = "team-note"
+          }
+          return useClass
+      }
+
     return (
         <div className = "sideBar">
             <div className = "user_details">
@@ -64,7 +73,13 @@ function SideBar(props) {
                     <div onClick = {e => {moveAround("/processes")}} className = {setActive(4)}><img className = "img" src = {process} />Processes</div>
                     <div onClick = {e => {moveAround("/teams")}} className = {setActive(5)}><img className = "img" src = {team} />Teams</div>
                 </div>
-                <div>Updates</div>
+                <div>
+                    {props.notifications.map((item, index) => (
+                        <div className = {colorNotification(item)}>
+                            {item.content}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

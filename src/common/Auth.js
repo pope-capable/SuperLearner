@@ -28,7 +28,6 @@ function Auth() {
             ...data,
             [event.target.name]: event.target.value
           });
-          console.log("MEEK", data)
     }
 
     function toggle(change) {
@@ -57,7 +56,6 @@ function Auth() {
     function signUp() {
         setdata({isSubmitting: true})
         postWithHeaders("users/sign-up", data, {"secret_key": "99.99%_accuracy"}).then(done => {
-            console.log("MEEK", done.data)
             if(done.data.status){
                 antdNotification("success", "Registration Complete", "Welcome to your super-learner, kindly login to continue")
                 setview("login")
@@ -67,7 +65,6 @@ function Auth() {
                 antdNotification("error", "Sign-up Failed", "Check your internet connection and provide valid login information")
             }
         }).catch(error => {
-            console.log("MEEK", error)
             setdata({isSubmitting: false})
             antdNotification("error", "Sign-up Failed", "Check your internet connection and provide valid login information")
         })

@@ -1,0 +1,143 @@
+.modal {
+    z-index:3;
+    display:block;
+    padding-top:10%;
+    position:fixed;
+    left:0;top:0;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    background-color:rgb(0,0,0);
+    background-color:rgba(0,0,0,0.8)
+  }
+
+  .modal-content{
+    margin:auto;
+    background-color:#fff;
+    position:relative;
+    padding:10px;
+    outline:0;
+    width:400px;
+    border-radius: 2px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header {
+      display: flex;
+      flex-direction: row;
+  }
+
+  .close-x {
+      text-align: right;
+      width: 100%;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+.modal-title {
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.modal-image{
+    width: 30px;
+    margin: 0 20px 0 0;
+}
+
+.modal-message {
+    margin: 20px;
+}
+
+.actions {
+    margin: 10px;
+    text-align: right;
+}
+
+.cancel {
+    width: 80px;
+    padding: 5px;
+    color: #000000;
+    background-color: #ffffff;
+    border-radius: 2px;
+    border: 0px ;
+    border-color: #000000;
+    border-style: solid;
+    padding: 5px;
+    font-size: 14px;
+    margin: 0 30px 0 0;
+    cursor: pointer;
+}
+
+.cancel:focus {
+    outline-width: 0;
+}
+
+.confirm {
+    width: 80px;
+    padding: 5px;
+    color: #000000;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    border: 0px ;
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.confirm:focus {
+    outline-width: 0;
+}
+
+.file-modal {
+    z-index:3;
+    display:block;
+    padding-top:5%;
+    position:fixed;
+    left:0;top:0;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    background-color:rgb(0,0,0);
+    background-color:rgba(0,0,0,0.5)
+  }
+
+.file-modal-content {
+    margin:auto;
+    background-color:#fff;
+    position:relative;
+    padding:10px;
+    outline:0;
+    width:80%;
+    border-radius: 10px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.file-modal-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.close-x {
+    text-align: right;
+    width: 100%;
+  }
+
+.file-modal-title {
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.file-modal-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: scroll;
+}

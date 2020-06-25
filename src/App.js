@@ -8,6 +8,8 @@ import Models from "../src/screens/Models"
 import Folders from "../src/screens/Folders"
 import Processes from "../src/screens/Processes"
 import Teams from "../src/screens/Team"
+import CreateProject from "../src/screens/CreateProject"
+import ProjectSpace from "../src/screens/ProjectSpace"
 
 import './App.css';
 import reducer from './utils/reducer'
@@ -34,6 +36,9 @@ function App() {
             <Route exact path = "/folders" component = {Folders} />
             <Route exact path = "/processes" component = {Processes} />
             <Route exact path = "/teams" component = {Teams} />
+            <Route exact path = "/create-project" component = {CreateProject} />
+            <Route exact path = "/project-space/:slug" component = {ProjectSpace} />
+
           </Switch>
         </Router>
       </AuthenticationContext.Provider>

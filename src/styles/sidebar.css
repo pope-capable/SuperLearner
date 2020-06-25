@@ -67,3 +67,17 @@
     margin: 20px 0;
     opacity: 0.4;
 }
+
+.project-note {
+    background-color: #FDE0AA;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.team-note {
+    background-color: #E1E9F2;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
