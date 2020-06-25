@@ -9,10 +9,8 @@ import '../styles/navbar.css';
     function toggleMenu() {
         if(showMenu){
             setshowMenu(false)
-            console.log("Show")
         }else{
             setshowMenu(true)
-            console.log("Hide")
         }
       }
 

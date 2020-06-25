@@ -17,3 +17,34 @@ code {
   --secondary-color1: #000000;
   --white: #FFFFFF
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #FAFAFA; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(182, 182, 182); 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888; 
+}
+
+.loader-image {
+  margin:  auto;
+  height: 200px;
+}
+
+.loader-container {
+  display: flex;
+  height: 100%;
+}
