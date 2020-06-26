@@ -1,5 +1,6 @@
 import axios from "axios"
-const baseUrl = "http://localhost:8000/"
+// const baseUrl = "http://localhost:8000/"
+const baseUrl = "https://supper-learner-team.herokuapp.com/"
 
 export function simplePost(location, data) {
     axios.post(`${baseUrl}/${location}`, data).then(response => {
