@@ -5,6 +5,9 @@ import SideBar from '../common/SideBar'
 import "../styles/projects.css"
 import classic from "../assets/images/preate.png"
 import CheckableTag from 'antd/lib/tag/CheckableTag'
+import { projectPostWithHeaders } from '../utils/Externalcalls'
+import { antdNotification } from '../common/misc';
+
 
 
 function CreateProject() {
@@ -15,7 +18,8 @@ function CreateProject() {
         description: null,
         notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}],
         ready: false,
-        showConfirm: false
+        showConfirm: false,
+        user: JSON.parse(localStorage.getItem("user"))
     };
 
     const [data, setdata] = useState(initialState)
@@ -33,7 +37,13 @@ function CreateProject() {
     }
 
     function createProject() {
-        window.location.href = `/project-space/${"0001"}`
+        projectPostWithHeaders("project/create", {...data, userId: data.user.id}, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
+            antdNotification("success", "Success", projectCreated.data.message)
+            window.location.href = `/project-space/${projectCreated.data.data.id}`
+        }).catch(error => {
+            antdNotification("error", "Project Creation Failed", error.message)
+            setdata({...data, showConfirm: false})
+        })
     }
     // function to update state with input
     function handleChange (event) {
