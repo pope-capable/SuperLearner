@@ -7,16 +7,21 @@ import FileContent from "../common/modals/folderContent"
 import "../styles/projects.css"
 import services from "../assets/images/service2.png"
 import cfolder from "../assets/images/folder2.png"
+import working from "../assets/images/work2.svg"
+import { projectGetWithHeaders } from '../utils/Externalcalls'
+import loadIcon from "../assets/images/load.gif"
+import { antdNotification } from '../common/misc';
 
-function ProjectSpace() {
+
+function ProjectSpace(props) {
 
     const initialState = {
-        isLoading: false,
+        isLoading: true,
         title: null,
         description: null,
         notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}],
         ready: false,
-        project: {id: "0001", title: "A real Project", desription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ornare lectus sit amet est placerat. Scelerisque felis imperdiet proin fermentum leo. Pretium aenean pharetra magna ac. Mauris in aliquam sem fringilla ut morbi tincidunt. Est sit amet facilisis magna etiam tempor orci eu lobortis. Lectus urna duis convallis convallis tellus id interdum velit. Auctor elit sed vulputate mi sit amet mauris. Urna neque viverra justo nec ultrices dui sapien. Lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis." },
+        project: {},
         folders: [{id: "001", name: "Uploads", type: "system"}, {id: "002", name: "Results", type: "system"}, {id: "003", name: "Big data", type: "personal"}],
         frequentFiles: [{id: "01", name: "first-file", type: "excel", location: "https://unsplash.com/photos/cQ_dLrAUppw"}, {id: "02", name: "a-file", type: "json", location: "https://unsplash.com/photos/cQ_dLrAUppw"}, {id: "03", name: "object-file", type: "json", location: "https://unsplash.com/photos/cQ_dLrAUppw"}, {id: "04", name: "last-file", type: "excel", location: "https://unsplash.com/photos/cQ_dLrAUppw"}],
         openFolder: false,
@@ -26,7 +31,23 @@ function ProjectSpace() {
     const [data, setdata] = useState(initialState)
 
     useEffect(() => {
+        projectDetail()
     }, [])
+
+    // function to get project detail
+    function projectDetail () {
+        projectGetWithHeaders(`project/detail/${props.match.params.slug}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectDetails => {
+            console.log("MEEK", projectDetails.data.data.description)
+            setdata({...data, project: projectDetails.data.data, isLoading: false})
+        }).catch(error => {
+            antdNotification("error", "Fetch Failed", "Error fetching project details, please reload screen")
+        })
+    }
+
+    // function to enter a project
+    function enterProject() {
+        window.location.href = `/project/${data.project.id}/${data.project.title}`
+    }
 
     // function to update state with input
     function handleChange (event) {
@@ -55,8 +76,13 @@ function ProjectSpace() {
             <SideBar active = {1} notifications = {data.notifications} />
             <div className = "project-view">
                 <div className = "view-header">
-                    <div>Project: {data.project.title}</div>
+                    <div>Project: {data.isLoading ? "fetching project information" : data.project.title}</div>
                 </div>
+                {
+                data.isLoading ?
+                <div className = "loader-container">
+                    <img className = "loader-image" src = {loadIcon} />
+                </div> : 
                 <div className = "project-summary">
                 <div className = "summary-row">
                         <div className = "folders">
@@ -77,16 +103,20 @@ function ProjectSpace() {
                                 </div>
                             </div>
                         </div>
-                        <div className = "access">Access</div>
+                        <div className = "access">
+                            <img className = "mascot" src = {working} />
+                            <div>Access management under development</div>
+                        </div>
                     </div>
                     <div className = "summary-row">
-                        <div className = "process-entrance">
+                        <div className = "process-entrance" onClick = {e => enterProject()}>
                             <img className = "mascot" src = {services} />
                             <div>Enter processes</div>
                         </div>
-                        <div className = "project-description">{data.project.desription}</div>
+                        <div className = "project-description">{data.project.description}</div>
                     </div>
                 </div>
+            }
             </div>
             {
                 data.openFolder ? <FileContent folder = {data.focusFolder} cancel = {() => closeModal()} /> : ""

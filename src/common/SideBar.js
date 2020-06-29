@@ -15,6 +15,7 @@ function SideBar(props) {
     const initialState = {
         user: user,
         disk: {},
+        notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}],
         user_name: "",
         email: "",
         isLoading: true,
@@ -74,7 +75,7 @@ function SideBar(props) {
                     <div onClick = {e => {moveAround("/teams")}} className = {setActive(5)}><img className = "img" src = {team} />Teams</div>
                 </div>
                 <div>
-                    {props.notifications.map((item, index) => (
+                    {data.notifications.map((item, index) => (
                         <div className = {colorNotification(item)}>
                             {item.content}
                         </div>
