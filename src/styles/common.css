@@ -9,8 +9,29 @@
     border-style: solid;
     width: 100%;
     min-height: 100px;
+    text-align: left;
+}
+
+.ptc {
+    border-radius: 10px;
+    background-color: #DDE7F0;
+    margin: 20px 0;
+    padding: 10px;
+    border-width:0 0 0 12px;
+    border-color: #59729A;
+    border-style: solid;
+    width: 100%;
+    min-height: 100px;
+    text-align: left;
 }
 
 .team-name {
     font-size: 24px;
+}
+
+.enter-icon {
+    float: right;
+    width: 50px;
+    right: 70px;
+    cursor: pointer;
 }

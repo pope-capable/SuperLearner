@@ -1,10 +1,10 @@
 .one-file {
-    flex: 0 44%;
+    flex: 0 29%;
     border-radius: 5px;
-    /* border-width: 0px;
-    border-style: solid; */
+    border-width: 1px;
+    border-style: solid;
     border-color: #b6b6b6;
-    box-shadow: 10px 10px 50px 1px rgba(94, 68, 68, 0.1);
+    /* box-shadow: 10px 10px 50px 1px rgba(94, 68, 68, 0.1); */
     margin: 10px;
     height: 50%;
     max-width: 220px;
