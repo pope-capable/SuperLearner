@@ -4,7 +4,17 @@ import "../../styles/modals.css"
 
 
 function SimpleConfirm(props) {
+    const initialState = {
+        isLoading: false
+    };
 
+    const [data, setdata] = useState(initialState)
+
+    function makeRequest() {
+        console.log("MEEK", props.confirm)
+        setdata({...data, isLoading: true})
+        props.confirm()
+    }
 
     useEffect(() => {
         console.log("MEEK", props)
@@ -23,7 +33,7 @@ function SimpleConfirm(props) {
                 </div>
                 <div className = "actions">
                     <button onClick = {props.cancel} className = "cancel">Cancel</button>
-                    <button onClick = {props.confirm} className = "confirm">Confirm</button>
+                    <button disabled = {data.isLoading} onClick = {e => makeRequest()} className = "confirm">Confirm</button>
                 </div>
             </div>
         </div>
