@@ -59,7 +59,7 @@ function Auth() {
             if(done.data.status){
                 antdNotification("success", "Registration Complete", "Welcome to your super-learner, kindly login to continue")
                 setview("login")
-                setdata(initialState)
+                document.getElementById("login-form").reset();
             }else{
                 setdata({isSubmitting: false})
                 antdNotification("error", "Sign-up Failed", "Check your internet connection and provide valid login information")
@@ -81,9 +81,11 @@ function Auth() {
                 view == "login" 
                 ? 
                 <div>
+                    <form id = "login-form">
                     <input name = "identifier" onChange = {e => handleChange(e)} placeholder = "E-mail or Username" />
                     <input type = "password" name = "password" onChange = {e => handleChange(e)} placeholder = "Password" />
                     <button disabled = {data.isSubmitting} onClick = {login} className = "login-button">{data.isSubmitting ? "please wait..." : "Proceed"}</button>
+                    </form>
                 </div> 
                 : 
                 <div>

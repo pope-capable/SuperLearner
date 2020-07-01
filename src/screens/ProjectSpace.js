@@ -8,9 +8,12 @@ import "../styles/projects.css"
 import services from "../assets/images/service2.png"
 import cfolder from "../assets/images/folder2.png"
 import working from "../assets/images/work2.svg"
-import { projectGetWithHeaders } from '../utils/Externalcalls'
+import { projectGetWithHeaders, FolderGetWithHeaders } from '../utils/Externalcalls'
 import loadIcon from "../assets/images/load.gif"
 import { antdNotification } from '../common/misc';
+import FormList from 'antd/lib/form/FormList'
+import empty from '../assets/images/nofile.png'
+
 
 
 function ProjectSpace(props) {
@@ -22,8 +25,8 @@ function ProjectSpace(props) {
         notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}],
         ready: false,
         project: {},
-        folders: [{id: "001", name: "Uploads", type: "system"}, {id: "002", name: "Results", type: "system"}, {id: "003", name: "Big data", type: "personal"}],
-        frequentFiles: [{id: "01", name: "first-file", type: "excel", location: "https://unsplash.com/photos/cQ_dLrAUppw"}, {id: "02", name: "a-file", type: "json", location: "https://unsplash.com/photos/cQ_dLrAUppw"}, {id: "03", name: "object-file", type: "json", location: "https://unsplash.com/photos/cQ_dLrAUppw"}, {id: "04", name: "last-file", type: "excel", location: "https://unsplash.com/photos/cQ_dLrAUppw"}],
+        folders: [],
+        frequentFiles: [],
         openFolder: false,
         focusFolder: {}
     };
@@ -37,12 +40,16 @@ function ProjectSpace(props) {
     // function to get project detail
     function projectDetail () {
         projectGetWithHeaders(`project/detail/${props.match.params.slug}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectDetails => {
-            console.log("MEEK", projectDetails.data.data.description)
-            setdata({...data, project: projectDetails.data.data, isLoading: false})
+            FolderGetWithHeaders(`folders/project/${props.match.params.slug}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(foldersCreated => {
+                setdata({...data, folders: foldersCreated.data.data, project: projectDetails.data.data, isLoading: false})
+            }).catch(error => {
+                antdNotification("error", "Fetch Failed", "Error fetching folders, please ensure a stable connection and reload screen")
+            })
         }).catch(error => {
             antdNotification("error", "Fetch Failed", "Error fetching project details, please reload screen")
         })
     }
+
 
     // function to enter a project
     function enterProject() {
@@ -87,7 +94,7 @@ function ProjectSpace(props) {
                 <div className = "summary-row">
                         <div className = "folders">
                             <div className = "folders-view">
-                                <div>Folders</div>
+                                <div className = "over-head">Folders</div>
                                 {data.folders.map((item, index) => (
                                     <div className = {folderStyle(item.type)} onClick = {e => openFolder(item)}>
                                         <img src = {cfolder} className = "c-folder" />{item.name}
@@ -95,12 +102,19 @@ function ProjectSpace(props) {
                                 ))}
                             </div>
                             <div className = "frequent-view">
-                                <div>Recent Files</div>
-                                <div className = "frequent-view-content">
-                                {data.frequentFiles.map((item, index) => (
-                                    <Onefile file = {item}  />
-                                ))}
-                                </div>
+                                <div className = "over-head">Recent Results</div>
+                                {
+                                    data.frequentFiles.length < 1 ?
+                                    <div className = "llo">
+                                        <img src = {empty} />
+                                        <div>No recent results</div>
+                                    </div> :
+                                    <div className = "frequent-view-content">
+                                    {data.frequentFiles.map((item, index) => (
+                                        <Onefile file = {item}  />
+                                    ))}
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className = "access">

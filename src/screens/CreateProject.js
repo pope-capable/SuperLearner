@@ -17,7 +17,7 @@ function CreateProject() {
         title: null,
         description: null,
         notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}],
-        ready: false,
+        ready: true,
         showConfirm: false,
         user: JSON.parse(localStorage.getItem("user"))
     };
@@ -51,12 +51,6 @@ function CreateProject() {
             ...data,
             [event.target.name]: event.target.value
           });
-            if(data.title && data.description){
-                setdata({
-                    ...data,
-                    ready: true
-                  });
-              }
     }
 
     return (

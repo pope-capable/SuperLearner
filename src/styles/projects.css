@@ -216,9 +216,9 @@
     padding: 20px;
     margin: 10px;
     background-color: #ffffff;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ff7a45;
+
+    box-shadow: 10px 10px 50px 1px rgba(0, 0, 0, 0.1);
+
 
 }
 
@@ -270,4 +270,13 @@
 
 .mascot {
     max-width: 250px;
+}
+
+.llo {
+    padding: auto;
+    height: 100%;
+}
+
+.over-head {
+    font-size: 20px;
 }
