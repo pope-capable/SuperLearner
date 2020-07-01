@@ -1,7 +1,7 @@
 import React from 'react'
 import { Upload, message, Button } from 'antd';
 
-const uploadUrl = "http://localhost:5000/file/upload-one"
+const uploadUrl = "https://folder-file.herokuapp.com/file/upload-one"
 
 
 const settings = (props) => {
