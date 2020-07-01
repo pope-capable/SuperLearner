@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { Progress, Avatar } from 'antd';
 import "../styles/sidebar.css"
 import { getWithHeaders } from '../utils/Externalcalls';
+import { AuthenticationContext } from "../utils/reducer";
 import pro from "../assets/images/project.png"
 import models from "../assets/images/tred.png"
 import fold from "../assets/images/folder.png"
 import process from "../assets/images/proc.png"
 import team from "../assets/images/team.png"
+import logout from "../assets/images/out.png"
+import { antdNotification } from './misc';
 
 
 function SideBar(props) {
+    const { dispatch } = React.useContext(AuthenticationContext);
     const user = JSON.parse(localStorage.getItem("user"))
     // initialize state
     const initialState = {
@@ -54,6 +58,12 @@ function SideBar(props) {
           return useClass
       }
 
+      function signOut() {
+        dispatch({type: "LOGOUT"})
+        antdNotification("success", "Thank you", "Thank you for using super learner, log back in t pickup where you left")
+        window.location.href = "/entry"
+      }
+
     return (
         <div className = "sideBar">
             <div className = "user_details">
@@ -81,6 +91,9 @@ function SideBar(props) {
                         </div>
                     ))}
                 </div>
+            </div>
+            <div onClick = {e => signOut()} className = "sn-bottom">
+                Logout <img className = "log-out" src = {logout}/>
             </div>
         </div>
     )

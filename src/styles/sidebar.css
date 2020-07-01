@@ -81,3 +81,16 @@
     border-radius: 10px;
     text-align: left;
 }
+
+.log-out {
+    width: 20px;
+    float: right;
+}
+
+.sn-bottom {
+    position: absolute;
+    bottom: 20px;
+    top: auto;
+    left: 350px;
+    cursor: pointer;
+}
