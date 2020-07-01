@@ -31,7 +31,6 @@ function Projects() {
     //   function to get all accessible projects
     function getProjects () {
         projectGetWithHeaders(`project/confirmed/${data.user.id}/confirmed`, {"token": JSON.parse(localStorage.getItem("token"))}).then(projects => {
-            console.log("MEEK", projects.data.data)
             setdata({...data, projects: projects.data.data, isLoading: false})
         }).catch(error => {
             antdNotification("error", "Fetch Failed", "Error fetching project details, please reload screen")

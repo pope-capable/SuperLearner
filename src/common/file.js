@@ -10,9 +10,10 @@ import "../styles/file.css"
 function Onefile(props) {
 
     function fittingIcon(data) {
+        console.log("MEEK", data)
         if(data == "json"){
             var bestIcon = jsonIcon
-        }else if(data == "excel"){
+        }else if(data == 'xlsx'){
             var bestIcon = excelIcon
         }else if(data == "pdf"){
             var bestIcon = pdfIcon
@@ -23,7 +24,6 @@ function Onefile(props) {
     }
 
     function Download(url) {
-        console.log("MEEK", url)
         var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
         document.getElementById('my_iframe').src = url;
     }

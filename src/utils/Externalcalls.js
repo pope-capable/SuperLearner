@@ -9,6 +9,9 @@ const baseUrl = "https://supper-learner-team.herokuapp.com/"
 // const projectBaseUrl = "http://localhost:8000/"
 const projectBaseUrl = "https://project-microservice.herokuapp.com/"
 
+// folder url
+const folderBaseUrl = "https://folder-file.herokuapp.com/"
+
 export function simplePost(location, data) {
     axios.post(`${baseUrl}/${location}`, data).then(response => {
         return response
@@ -36,5 +39,15 @@ export function projectPostWithHeaders(location, data, headers) {
 }
 
 export function projectGetWithHeaders(location, headers) {
+    return axios.get(projectBaseUrl + location, {headers})
+}
+
+// folder calls here
+
+export function FolderGetWithHeaders(location, headers) {
+    return axios.get(folderBaseUrl + location, {headers})
+}
+
+export function folderGetWithHeaders(location, headers) {
     return axios.get(projectBaseUrl + location, {headers})
 }

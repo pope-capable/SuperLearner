@@ -3,7 +3,6 @@ export const AuthenticationContext = React.createContext()
 
 
 const reducer = (state, action) => {
-  console.log("MEEK", state, action)
     switch (action.type) {
       case "LOGIN":
         localStorage.setItem("user", JSON.stringify(action.payload.user));
@@ -25,5 +24,7 @@ const reducer = (state, action) => {
         return state;
     }
   };
+
+
 
   export default reducer
