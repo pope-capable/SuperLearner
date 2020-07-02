@@ -14,6 +14,7 @@ function FolderContent(props) {
         files: [],
         folder: props.folder,
         newUpload: {},
+        slected: {}
     };
 
     const [data, setdata] = useState(initialState)
@@ -35,6 +36,11 @@ function FolderContent(props) {
         getFiles()
     }
 
+    function getselectedLocation(location) {
+        setdata({...data, slected: location})
+        props.select(location)
+    }
+
 
     return (
         <div className = "file-modal">
@@ -52,7 +58,7 @@ function FolderContent(props) {
                         </div> :
                         <div className = "file-modal-body">
                             {data.files.map((item, index) => (
-                                <Onefile file = {item}  />
+                                <Onefile file = {item} sendLocation = {getselectedLocation} selectedNeigbour = {data.slected.id}  />
                             ))}
                         </div>
                     }

@@ -24,7 +24,6 @@ function ProjectSummary(props) {
       const [data, setdata] = useState(initialState)
 
       useEffect(() => {
-          console.log("MEEK", props)
       }, [])
 
     return (
