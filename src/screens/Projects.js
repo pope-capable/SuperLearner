@@ -52,7 +52,7 @@ function Projects() {
                     <img className = "loader-image" src = {loadIcon} />
                 </div> :
                 <div>
-                    {data.projects.length > 1 ?
+                    {data.projects.length > 0 ?
                     <div>
                         {data.projects.map((item, index) => (
                             <OneProject oneProject = {item}  />

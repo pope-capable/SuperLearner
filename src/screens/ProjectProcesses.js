@@ -10,6 +10,7 @@ import cloud from "../assets/images/cloud.png"
 import { projectGetWithHeaders } from '../utils/Externalcalls'
 import loadIcon from "../assets/images/load.gif"
 import { antdNotification } from '../common/misc';
+import DataPreprocessing from '../common/dataPP'
 
 
 function ProjectProcesses(props) {
@@ -20,7 +21,7 @@ function ProjectProcesses(props) {
         notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}],
         ready: false,
         project: {},
-        section: [{id: 1, name: "Data Pre-processing"}, {id: 2, name: "Models"}, {id: 3, name: "Super Learner"}],
+        section: [{id: 1, name: "Data Pre-processing"}, {id: 2, name: "Models"}, {id: 3, name: "Super Learner"}, {id: 4, name: "Processes"}],
         openFolder: false,
         focusFolder: {}
     };
@@ -59,6 +60,14 @@ function ProjectProcesses(props) {
         setdata({...data, openFolder: false})
     }
 
+    // function to show process components
+    function showComponent() {
+        if(data.activeSection == 1){
+            var activeComponent = <DataPreprocessing project = {props.match.params.slug} />
+        }
+        return activeComponent
+    }
+
     return (
         <div className = "page">
             <SideBar active = {1} notifications = {data.notifications} />
@@ -78,6 +87,7 @@ function ProjectProcesses(props) {
                 </div> : 
                 <div className = "project-summary">
                     <div className = "project-message"><img className = "cloud-image" src ={cloud} /> Kindly Select one of the options to continue</div>
+                    {showComponent()}
                 </div>
             }
             </div>
