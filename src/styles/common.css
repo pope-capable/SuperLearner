@@ -35,3 +35,111 @@
     right: 70px;
     cursor: pointer;
 }
+
+.dpp-view {
+    height: 100%;
+    margin: 50px 200px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.dpp-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dpp-action {
+    padding: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b6b6b6;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.dpp-action-img {
+    width: 20px;
+    margin-top: 0px;
+    margin-right: 0px;
+    float: right;
+}
+
+.dpp-row{
+    margin: 50px 0;
+}
+
+.dpp-sf {
+    cursor: pointer;
+}
+
+.neg-sd {
+    padding: auto;
+    background-color: #ADC9EC;
+    border-radius: 5px 0 0 5px;
+    width: 40px;
+    max-height: 40px;
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+}
+
+.pos-sd {
+    padding: auto;
+    background-color: #ADC9EC;
+    border-radius: 0 5px 5px 0;
+    width: 40px;
+    max-height: 40px;
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+}
+
+.display-sd {
+    padding: auto;
+    background-color: #DDE7F0;
+    border-radius: 0;
+    width: 40px;
+    max-height: 40px;
+    text-align: center;
+    margin: auto;
+}
+
+.dpp-sd {
+    font-size: 16px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.dpp-roll {
+    max-width: 120px;
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0
+}
+
+.dpp-pom {
+    display: flex;
+    flex-direction: row;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.proceed-button-2 {
+    width: 100%;
+    padding: 5px;
+    color: #000000;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    border: 0px ;
+    padding: 5px;
+    font-size: 14px;
+    margin: 20px 30px 0 0;
+    cursor: pointer;
+    max-width: 100px;
+    margin-left: -120px ;
+    float: right;
+}
