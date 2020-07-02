@@ -78,6 +78,10 @@ function ProjectSpace(props) {
         setdata({...data, openFolder: false})
     }
 
+    function selectFile(dot) {
+
+    }
+
     return (
         <div className = "page">
             <SideBar active = {1} notifications = {data.notifications} />
@@ -133,7 +137,7 @@ function ProjectSpace(props) {
             }
             </div>
             {
-                data.openFolder ? <FileContent folder = {data.focusFolder} cancel = {() => closeModal()} /> : ""
+                data.openFolder ? <FileContent select = {selectFile} folder = {data.focusFolder} cancel = {() => closeModal()} /> : ""
             }
             </div>
     )

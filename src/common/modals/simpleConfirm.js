@@ -11,13 +11,11 @@ function SimpleConfirm(props) {
     const [data, setdata] = useState(initialState)
 
     function makeRequest() {
-        console.log("MEEK", props.confirm)
         setdata({...data, isLoading: true})
         props.confirm()
     }
 
     useEffect(() => {
-        console.log("MEEK", props)
     }, [])
 
 

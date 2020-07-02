@@ -12,6 +12,10 @@ const projectBaseUrl = "https://project-microservice.herokuapp.com/"
 // folder url
 const folderBaseUrl = "https://folder-file.herokuapp.com/"
 
+
+
+
+
 export function simplePost(location, data) {
     axios.post(`${baseUrl}/${location}`, data).then(response => {
         return response
@@ -50,4 +54,8 @@ export function FolderGetWithHeaders(location, headers) {
 
 export function folderGetWithHeaders(location, headers) {
     return axios.get(projectBaseUrl + location, {headers})
+}
+
+export function folderPostWithHeaders(location, data, headers) {
+    return axios.post(projectBaseUrl + location, data, {headers})
 }

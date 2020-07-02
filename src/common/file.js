@@ -9,8 +9,13 @@ import "../styles/file.css"
 
 function Onefile(props) {
 
+    const initialState = {
+        selected: {}
+      };
+
+    const [data, setdata] = useState(initialState)
+
     function fittingIcon(data) {
-        console.log("MEEK", data)
         if(data == "json"){
             var bestIcon = jsonIcon
         }else if(data == 'xlsx'){
@@ -28,11 +33,24 @@ function Onefile(props) {
         document.getElementById('my_iframe').src = url;
     }
 
+    function clickedFile(file) {
+        setdata({...data, selected: file})
+        props.sendLocation(file)
+    }
+
+    function differSelected(fileId) {
+        if(props.selectedNeigbour == fileId){
+            var useClass = "file-details-2"
+        }else {
+            var useClass = "file-details"
+        }
+        return useClass
+    }
 
     return (
         <div className = "one-file">
-            <div className = "file-details">{props.file.name}</div>
-            <div className = "file-img"><img src = {fittingIcon(props.file.type)}/></div>
+            <div className = {differSelected(props.file.id)}>{props.file.name}</div>
+            <div className = "file-img"><img onClick = {e => clickedFile(props.file)} src = {fittingIcon(props.file.type)}/></div>
             <div onClick = {e => {Download(props.file.location)}}><img className = "file-download" src = {download}/></div>
             <iframe id="my_iframe" style={{display: "none"}}></iframe>
         </div>

@@ -19,7 +19,6 @@ const settings = (props) => {
     
     onChange(info) {
       if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
         props.updateFile(info.file.response)
