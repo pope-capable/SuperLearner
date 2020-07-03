@@ -143,3 +143,12 @@
     margin-left: -120px ;
     float: right;
 }
+
+.process {
+    width: 100%;
+    margin: 20px 0;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b6b6b6;
+    padding: 20px;
+}

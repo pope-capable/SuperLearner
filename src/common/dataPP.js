@@ -23,10 +23,13 @@ function DataPP(props) {
         location: null,
         sd: 1,
         output: null,
-        showConfirm: false
+        showConfirm: false,
+        type: "Data-pp",
+        projectId: props.project
       };
 
     useEffect(() => {
+        console.log("MEEK", props)
         getFolders()
     }, [])
 

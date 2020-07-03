@@ -11,6 +11,7 @@ import { projectGetWithHeaders } from '../utils/Externalcalls'
 import loadIcon from "../assets/images/load.gif"
 import { antdNotification } from '../common/misc';
 import DataPreprocessing from '../common/dataPP'
+import ActiveProcesses from '../common/processes'
 
 
 function ProjectProcesses(props) {
@@ -64,6 +65,8 @@ function ProjectProcesses(props) {
     function showComponent() {
         if(data.activeSection == 1){
             var activeComponent = <DataPreprocessing project = {props.match.params.slug} />
+        }else if(data.activeSection == 4){
+            var activeComponent = <ActiveProcesses project = {props.match.params.slug} />
         }
         return activeComponent
     }
