@@ -10,6 +10,7 @@ const baseUrl = "https://supper-learner-team.herokuapp.com/"
 const projectBaseUrl = "https://project-microservice.herokuapp.com/"
 
 // folder url
+// const folderBaseUrl = "http://localhost:5000/"
 const folderBaseUrl = "https://folder-file.herokuapp.com/"
 
 
@@ -52,10 +53,6 @@ export function FolderGetWithHeaders(location, headers) {
     return axios.get(folderBaseUrl + location, {headers})
 }
 
-export function folderGetWithHeaders(location, headers) {
-    return axios.get(projectBaseUrl + location, {headers})
-}
-
 export function folderPostWithHeaders(location, data, headers) {
-    return axios.post(projectBaseUrl + location, data, {headers})
+    return axios.post(folderBaseUrl + location, data, {headers})
 }
