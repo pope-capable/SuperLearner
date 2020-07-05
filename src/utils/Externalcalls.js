@@ -11,7 +11,7 @@ const projectBaseUrl = "https://project-microservice.herokuapp.com/";
 
 // folder url
 const folderBaseUrl = "http://localhost:5000/";
-//const folderBaseUrl = "https://folder-file.herokuapp.com/"
+// const folderBaseUrl = "https://folder-file.herokuapp.com/"
 
 export function simplePost(location, data) {
   axios.post(`${baseUrl}/${location}`, data).then((response) => {
