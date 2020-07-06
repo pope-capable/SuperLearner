@@ -133,7 +133,7 @@ function DataPP(props) {
                 </div>
                 <div className = "activity-title-mid"> 
                     <span class="input-tag">Outcome Name</span>
-                    <input name = "act_column" onChange = {e => handleChange(e)} className = "custom-input" prefix = "Runner" />
+                    <input name = "outc" onChange = {e => handleChange(e)} className = "custom-input" prefix = "Runner" />
                 </div>
                 <div className = "dpp-row">
                     <button onClick = {e => confirmCreation()} className = "proceed-button-2">Next</button>
