@@ -25,7 +25,9 @@ function DataPP(props) {
         output: null,
         showConfirm: false,
         type: "Data-pp",
-        projectId: props.project
+        projectId: props.project,
+        act_column: null,
+        outc: null
       };
 
     useEffect(() => {
@@ -125,6 +127,14 @@ function DataPP(props) {
                         ))
                     }
                 </Radio.Group>
+                <div className = "activity-title-mid"> 
+                    <span class="input-tag">Study/Index Column</span>
+                    <input name = "act_column" onChange = {e => handleChange(e)} className = "custom-input" prefix = "Runner" />
+                </div>
+                <div className = "activity-title-mid"> 
+                    <span class="input-tag">Outcome Name</span>
+                    <input name = "act_column" onChange = {e => handleChange(e)} className = "custom-input" prefix = "Runner" />
+                </div>
                 <div className = "dpp-row">
                     <button onClick = {e => confirmCreation()} className = "proceed-button-2">Next</button>
                 </div>
