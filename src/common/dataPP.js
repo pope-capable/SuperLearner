@@ -31,7 +31,6 @@ function DataPP(props) {
       };
 
     useEffect(() => {
-        console.log("MEEK", props)
         getFolders()
     }, [])
 
