@@ -27,8 +27,8 @@ import '../styles/navbar.css';
             </div>
             {props.showEntry ? "" : 
                 <div className = "pages">
-                <div onClick = {e => window.location.href = "/entry"} ><button className = "login">Login</button></div>
-                    <div onClick = {e => window.location.href = "/entry"} ><button className = "sign-up">Signup</button></div>    
+                <div onClick = {e => window.location.href = "/entry/login"} ><button className = "login">Login</button></div>
+                    <div onClick = {e => window.location.href = "/entry/signup"} ><button className = "sign-up">Signup</button></div>    
                     </div>}
                 </div>
                 <div className = "menu">

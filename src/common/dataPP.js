@@ -27,11 +27,11 @@ function DataPP(props) {
         type: "Data-pp",
         projectId: props.project,
         act_column: null,
-        outc: null
+        outc: null,
+        misingDataPercentage: 0
       };
 
     useEffect(() => {
-        console.log("MEEK", props)
         getFolders()
     }, [])
 
@@ -73,6 +73,24 @@ function DataPP(props) {
         }
         if(direction == "+" && data.sd < 10){
             setdata({...data, sd: data.sd + 1})
+        }
+    }
+
+    function changeMD(direction) {
+        console.log("MEEK", direction)
+        if(direction == "-" && data.misingDataPercentage > 0){
+            setdata({...data, misingDataPercentage: data.misingDataPercentage - 5})
+        }
+        if(direction == "+" && data.misingDataPercentage < 100){
+            setdata({...data, misingDataPercentage: data.misingDataPercentage + 5})
+        }
+    }
+
+    function manualMDchange(event) {
+        if(event.target.value < 101 && event.target.value > -1){
+            setdata({...data, misingDataPercentage: event.target.value})
+        }else{
+            setdata({...data, misingDataPercentage: 0})
         }
     }
 
@@ -134,6 +152,21 @@ function DataPP(props) {
                 <div className = "activity-title-mid"> 
                     <span class="input-tag">Outcome Name</span>
                     <input name = "outc" onChange = {e => handleChange(e)} className = "custom-input" prefix = "Runner" />
+                </div>
+                <div className = "dpp-row">
+                    <button onClick = {e => confirmCreation()} className = "proceed-button-2">Next</button>
+                </div>
+            </div>
+        }else if(lastStep == 1 && data.location){
+            var lastData =
+            <div className = "dpp-sd">
+                <div>Remove missing data row Above</div>
+                <div className = "dpp-pom">
+                    <div className = "dpp-roll">
+                    <div onClick = {e => changeMD("-")} className = "neg-sd">-</div>
+                    <input onChange = {e => manualMDchange(e)} value = {data.misingDataPercentage} className = "display-sd"/>
+                    <div onClick = {e => changeMD("+")} className = "pos-sd">+</div>
+                    </div>
                 </div>
                 <div className = "dpp-row">
                     <button onClick = {e => confirmCreation()} className = "proceed-button-2">Next</button>
