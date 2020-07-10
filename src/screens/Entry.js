@@ -4,12 +4,12 @@ import Authentication from "../common/Auth"
 import "../styles/entry.css"
 
 
-function Entry() {
+function Entry(props) {
     return (
         <div className = "entry">
             <Navbar showEntry = {true} />
             <section className = "pillar">
-                <Authentication />
+                <Authentication goto = {props.match.params.pp} />
             </section>
         </div>
     )

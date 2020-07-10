@@ -31,7 +31,7 @@ function App() {
       <Router>
           <Switch>
             <Route exact path = "/" component = {Home}/>
-            <Route exact path = "/entry" component = {Entry} />
+            <Route exact path = "/entry/:pp" component = {Entry} />
             <Route exact path = "/dashboard" component = {Dashboard} />
             <Route exact path = "/models" component = {Models} />
             <Route exact path = "/folders" component = {Folders} />

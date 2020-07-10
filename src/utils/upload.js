@@ -7,7 +7,7 @@ const uploadUrl = "https://folder-file.herokuapp.com/file/upload-one"
 const settings = (props) => {
   return {
     name: 'document',
-    accept: "*",
+    accept: ".csv",
     action: uploadUrl,
     data: {folderId: props.fileMeta},
     headers: {

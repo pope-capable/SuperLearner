@@ -96,3 +96,9 @@
     left: 350px;
     cursor: pointer;
 }
+
+.logout {
+    max-width: 100px;
+    float: right;
+    cursor: pointer;
+}
