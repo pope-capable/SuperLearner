@@ -115,7 +115,7 @@ function DataPP(props) {
         })
     }
 
-    // this function adds the final section to the data pre-processing screen
+    // this function adds the final data entry section to the data pre-processing screen
     function finalSection(lastStep) {
         if(lastStep == 2 && data.location){
             var lastData =
