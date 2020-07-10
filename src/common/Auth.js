@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "../styles/auth.css"
 import {postWithHeaders } from '../utils/Externalcalls'
 import {notification, Button } from 'antd';
@@ -6,9 +6,12 @@ import { antdNotification } from './misc';
 import { AuthenticationContext } from "../utils/reducer";
 
 
-function Auth() {
+function Auth(props) {
     const { dispatch } = React.useContext(AuthenticationContext);
-    const [view, setview] = useState("login")
+
+    useEffect(() => {
+        console.log("MEEK", props)
+    }, [])
 
     // initialize input identifiers
     const initialState = {
@@ -17,7 +20,8 @@ function Auth() {
         user_name: "",
         email: "",
         isSubmitting: false,
-        errorMessage: null
+        errorMessage: null,
+        view: props.goto 
       };
 
     //   map identifiers into state
@@ -31,7 +35,7 @@ function Auth() {
     }
 
     function toggle(change) {
-        if(view !== change ) {
+        if(data.view !== change ) {
             return "inactive"
         }
     }
@@ -58,14 +62,14 @@ function Auth() {
         postWithHeaders("users/sign-up", data, {"secret_key": "99.99%_accuracy"}).then(done => {
             if(done.data.status){
                 antdNotification("success", "Registration Complete", "Welcome to your super-learner, kindly login to continue")
-                setview("login")
+                setdata({...data, view: "login", password: ""})
                 document.getElementById("login-form").reset();
             }else{
-                setdata({isSubmitting: false})
+                setdata({...data, isSubmitting: false})
                 antdNotification("error", "Sign-up Failed", "Check your internet connection and provide valid login information")
             }
         }).catch(error => {
-            setdata({isSubmitting: false})
+            setdata({...data, isSubmitting: false})
             antdNotification("error", "Sign-up Failed", "Check your internet connection and provide valid login information")
         })
     }
@@ -73,12 +77,12 @@ function Auth() {
     return (
         <div className = "gate">
             <div className = "entrance">
-                <div onClick = {e => setview("login")} className = {toggle("login")}>Login</div>
-                <div onClick = {e => setview("signup")} className = {toggle("signup")}>Sign-up</div>
+                <div onClick = {e => setdata({...data, view: "login"})} className = {toggle("login")}>Login</div>
+                <div onClick = {e => setdata({...data, view: "signup"})} className = {toggle("signup")}>Sign-up</div>
             </div>
             <div className = "key">
             {
-                view == "login" 
+                data.view == "login" 
                 ? 
                 <div>
                     <form id = "login-form">
