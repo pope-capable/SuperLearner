@@ -61,7 +61,7 @@ function SideBar(props) {
       function signOut() {
         dispatch({type: "LOGOUT"})
         antdNotification("success", "Thank you", "Thank you for using super learner, log back in t pickup where you left")
-        window.location.href = "/entry"
+        window.location.href = "/entry/login"
       }
 
     return (
@@ -75,6 +75,9 @@ function SideBar(props) {
                     <Progress showInfo = {false} strokeColor={{'0%': '#91d5ff', '100%': '#003a8c', }} percent={data.disk.percentageUsed}/>
                 </div>
                 <div className = "mem-data">{data.isLoading ? "Analyzing memory usage..." : data.disk.percentageUsed + "% of storage exhausted"}</div>
+            </div>
+            <div onClick = {e => signOut()} className = "logout">
+                Logout <img className = "log-out" src = {logout}/>
             </div>
             <div className = "lower-side">
                 <div className = "sections">
@@ -92,9 +95,7 @@ function SideBar(props) {
                     ))}
                 </div>
             </div>
-            <div onClick = {e => signOut()} className = "sn-bottom">
-                Logout <img className = "log-out" src = {logout}/>
-            </div>
+
         </div>
     )
 }
