@@ -14,7 +14,9 @@ function FolderContent(props) {
         files: [],
         folder: props.folder,
         newUpload: {},
-        slected: {}
+        slected: {},
+        folders: [{name: "Uploads",id: 1}, {name: "Results", id: 2} ],
+        folderSelected: false
     };
 
     const [data, setdata] = useState(initialState)
@@ -45,7 +47,16 @@ function FolderContent(props) {
     return (
         <div className = "file-modal">
             <div className='file-modal-content'>
-            <div className = "file-modal-header">
+                {
+                    !data.folderSelected ? 
+                    <div>
+                        <div className = "file-modal-title">Select Folder <div onClick = {props.cancel} className = "close-x">X</div></div>
+                            
+                            <div></div>
+                            <div>Next</div>
+                        </div> :
+                    <div>
+                        <div className = "file-modal-header">
                 <div className = "file-modal-title">Folder: {data.folder.name}</div>
                     <div onClick = {props.cancel} className = "close-x">X</div>
                 </div>
@@ -68,6 +79,8 @@ function FolderContent(props) {
                     <Uploader fileMeta = {data.folder.id} updateFile = {fileUploaded} />
                 </div> : 
                 <div></div>}
+                    </div>
+                }
             </div>
         </div>
     )
