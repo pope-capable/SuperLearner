@@ -195,7 +195,7 @@ function DataPP(props) {
                 {data.value > 0 ?
                 <div className = "dpp-sf">
                     <div className = "activity-title-mid"> 
-                        <span class="input-tag">Output name</span>
+                        <span className="input-tag">Output name</span>
                         <input name = "output" onChange = {e => handleChange(e)} className = "custom-input" prefix = "Runner" />
                     </div>
                     <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders
