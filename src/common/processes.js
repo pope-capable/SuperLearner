@@ -20,6 +20,16 @@ function LiveProcesses(props) {
     //   map identifiers into state
     const [data, setdata] = useState(initialState)
 
+    function classProcesses (status) {
+        if(status == "Completed"){
+            var right = "ptc-c"
+        }else if(status == "Running..."){
+            var right = "ptc"
+        }else {
+            var right = "ptc-f"
+        }
+        return right
+    }
 
     function getProcesses() {
         FolderGetWithHeaders(`process/all/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(processesLive => {
@@ -33,11 +43,12 @@ function LiveProcesses(props) {
         <div className = "dpp-view">
             {
                 data.processes.map((item, index) => (
-                    <div className = "ptc">
+                    <div className = {classProcesses(item.status)}>
                         {item.name}
                         <div>
                             {item.status}
                         </div>
+                        <div className = "reason">{item.failure_reason}</div>
                     </div>
                 ))
             }
