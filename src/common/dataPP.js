@@ -60,7 +60,7 @@ function DataPP(props) {
     }
 
     function getFolders() {
-        FolderGetWithHeaders(`folders/project-uploads/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(foldersCreated => {
+        FolderGetWithHeaders(`folders/project/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(foldersCreated => {
             setdata({...data, uploads: foldersCreated.data.data})
         }).catch(error => {
             antdNotification("error", "Fetch Failed", "Error fetching folders, please ensure a stable connection and reload screen")
@@ -77,7 +77,6 @@ function DataPP(props) {
     }
 
     function changeMD(direction) {
-        console.log("MEEK", direction)
         if(direction == "-" && data.misingDataPercentage > 0){
             setdata({...data, misingDataPercentage: data.misingDataPercentage - 5})
         }
@@ -115,7 +114,7 @@ function DataPP(props) {
         })
     }
 
-    // this function adds the final section to the data pre-processing screen
+    // this function adds the final data entry section to the data pre-processing screen
     function finalSection(lastStep) {
         if(lastStep == 2 && data.location){
             var lastData =
@@ -196,7 +195,7 @@ function DataPP(props) {
                 {data.value > 0 ?
                 <div className = "dpp-sf">
                     <div className = "activity-title-mid"> 
-                        <span class="input-tag">Output name</span>
+                        <span className="input-tag">Output name</span>
                         <input name = "output" onChange = {e => handleChange(e)} className = "custom-input" prefix = "Runner" />
                     </div>
                     <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders
@@ -217,7 +216,7 @@ function DataPP(props) {
                 }
             </div>
             {
-                data.openFolder ? <FolderContent select = {selectFile} folder = {data.uploads} cancel = {() => closeModal()} /> : ""
+                data.openFolder ? <FolderContent select = {selectFile} folders = {data.uploads} cancel = {() => closeModal()} /> : ""
             }
             {
                 data.showConfirm ? <ConfirmModal cancel = {() => closeModal()} confirm = {() => createProcess()} message = {"Confirm project creation, this will affect your available disk space as new file directories will be created"} /> : ""

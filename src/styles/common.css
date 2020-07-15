@@ -25,6 +25,36 @@
     text-align: left;
 }
 
+.reason {
+    font-size: 12px;
+}
+
+.ptc-c {
+    border-radius: 10px;
+    background-color: #d9f7be;
+    margin: 20px 0;
+    padding: 10px;
+    border-width:0 0 0 12px;
+    border-color: #135200;
+    border-style: solid;
+    width: 100%;
+    min-height: 100px;
+    text-align: left;
+}
+
+.ptc-f {
+    border-radius: 10px;
+    background-color: #ffccc7;
+    margin: 20px 0;
+    padding: 10px;
+    border-width:0 0 0 12px;
+    border-color: #820014;
+    border-style: solid;
+    width: 100%;
+    min-height: 100px;
+    text-align: left;
+}
+
 .team-name {
     font-size: 24px;
 }
