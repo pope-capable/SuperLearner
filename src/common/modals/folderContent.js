@@ -98,7 +98,13 @@ function FolderContent(props) {
                         <div><button disabled = {data.isloading} onClick = {() => showContent()} className = "next-button">Next</button></div>
                         </div> :
                         <div>
-                            <div className = "file-modal-title"><div onClick = {e => backFolder()} className = "back-link">back</div>Folder: {data.pontFolder.name}<div onClick = {props.cancel} className = "close-x">X</div></div>
+                            <div className = "file-modal-title"><div onClick = {e => backFolder()} className = "back-link">back</div>Folder: {data.pontFolder.name}<div>{">" + data.slected.name}</div>
+                        {
+                            data.slected.name ? 
+                            <button className = "use-button" onClick = {props.cancel}>Use this</button>: 
+                            ""
+                        }
+                            <div onClick = {props.cancel} className = "close-x">X</div></div>
                             <div className = "file-modal-inner-content">
                                 {
                                     folderFiles.length < 1 ?

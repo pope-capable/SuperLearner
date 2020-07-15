@@ -207,4 +207,17 @@
     margin: 0 10px 0 0;
     border-color: #59729A;
     border-style: solid;
+    cursor: pointer;
+}
+
+.use-button {
+    min-width: 100px;
+    padding: 5px;
+    color: #000000;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    border: 0px ;
+    font-size: 14px;
+    margin: 0px 30px ;
+    cursor: pointer;
 }
