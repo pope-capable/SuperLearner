@@ -3,7 +3,7 @@ import {Steps, Carousel, Modal} from "antd"
 import ConfirmModal from "../common/modals/simpleConfirm"
 import SideBar from '../common/SideBar'
 import Onefile from "../common/file"
-import FileContent from "../common/modals/folderContent"
+import OneFileContent from "../common/modals/oneFolderContent"
 import "../styles/projects.css"
 import services from "../assets/images/service2.png"
 import cfolder from "../assets/images/folder2.png"
@@ -137,7 +137,7 @@ function ProjectSpace(props) {
             }
             </div>
             {
-                data.openFolder ? <FileContent select = {selectFile} folder = {data.focusFolder} cancel = {() => closeModal()} /> : ""
+                data.openFolder ? <OneFileContent select = {selectFile} folder = {data.focusFolder} cancel = {() => closeModal()} /> : ""
             }
             </div>
     )
