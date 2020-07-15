@@ -12,6 +12,7 @@ import loadIcon from "../assets/images/load.gif"
 import { antdNotification } from '../common/misc';
 import DataPreprocessing from '../common/dataPP'
 import ActiveProcesses from '../common/processes'
+import ModelTabView from '../common/modelsTab'
 
 
 function ProjectProcesses(props) {
@@ -67,6 +68,8 @@ function ProjectProcesses(props) {
             var activeComponent = <DataPreprocessing project = {props.match.params.slug} />
         }else if(data.activeSection == 4){
             var activeComponent = <ActiveProcesses project = {props.match.params.slug} />
+        }else if(data.activeSection == 2){
+            var activeComponent = <ModelTabView />
         }
         return activeComponent
     }
