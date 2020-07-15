@@ -12,18 +12,16 @@ function OneFolderContent(props) {
     const initialState = {
         isLoading: true,
         files: [],
-        folders: props.folders,
+        folder: props.folder,
         newUpload: {},
-        slected: {},
-        folderSelected: false
+        slected: {}
     };
 
     const [data, setdata] = useState(initialState)
 
 
     useEffect(() => {
-        console.log("MEEK", props.folders)
-        // getFiles()
+        getFiles()
     }, [])
 
     function getFiles() {
@@ -47,19 +45,6 @@ function OneFolderContent(props) {
     return (
         <div className = "file-modal">
             <div className='file-modal-content'>
-                {
-                    !data.folderSelected ? 
-                    <div>
-                        <div className = "file-modal-title">Select Folder <div onClick = {props.cancel} className = "close-x">X</div></div>
-                        <div className = "file-modal-inner-content">
-                            {
-                                data.folders.map((item, index) => (
-                                    <div className = "one-folder">{item.name}</div>
-                                ))
-                            }
-                        </div>
-                        <div><button>Next</button></div>
-                        </div> :
                     <div>
                         <div className = "file-modal-header">
                 <div className = "file-modal-title">Folder: {data.folder.name}</div>
@@ -85,7 +70,6 @@ function OneFolderContent(props) {
                 </div> : 
                 <div></div>}
                     </div>
-                }
             </div>
         </div>
     )
