@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import jsonIcon from "../assets/images/json.png"
 import excelIcon from "../assets/images/excel.png"
 import pdfIcon from "../assets/images/pdf.png"
@@ -9,6 +9,9 @@ import $ from 'jquery';
 import "../styles/file.css"
 
 function Onefile(props) {
+
+    useEffect(() => {
+    }, [])
 
     const initialState = {
         selected: {}

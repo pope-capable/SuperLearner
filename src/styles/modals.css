@@ -121,7 +121,7 @@
 
 .file-modal-inner-content {
     display: flex;
-    min-height: 500px;
+    min-height: 450px;
     overflow: scroll;
     height: 100%;
     width: 100%;
@@ -129,11 +129,22 @@
 }
 
 .one-folder {
-    margin: 10px;
+    margin: 50px;
+    width: 50%;
+    border-radius: 10px;
+    /* background-color: #fde0aa7a; */
+    box-shadow: 10px 0 50px -1px rgba(0, 0, 0, 0.1);
+    padding-top: 50px;
+
+}
+
+.one-folder-selected {
+    margin: 50px;
     width: 50%;
     border-radius: 10px;
     background-color: #fde0aa7a;
-    /* box-shadow: 10px 0 50px -1px rgba(0, 0, 0, 0.1); */
+    box-shadow: 10px 0 50px -1px rgba(0, 0, 0, 0.1);
+    padding-top: 50px;
 
 }
 
@@ -164,6 +175,7 @@
     overflow: scroll;
     width: 100%;
     height: 100%;
+    max-height: 500px
 }
 
 .upload-button {
@@ -174,4 +186,25 @@
 
 .empty-folder {
     padding: auto;
+}
+
+.next-button {
+    min-width: 200px;
+    padding: 5px;
+    color: #000000;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    border: 0px ;
+    padding: 8px;
+    font-size: 14px;
+    margin: 20px 30px 0 0;
+    cursor: pointer;
+}
+
+.back-link{
+    border-width:0 1px 0 0px;
+    padding: 0 10px 0 0;
+    margin: 0 10px 0 0;
+    border-color: #59729A;
+    border-style: solid;
 }
