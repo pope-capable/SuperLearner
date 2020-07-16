@@ -142,6 +142,12 @@ function ModelsTabView(props) {
                         <Select defaultValue="Select Model Script" onChange = {handleSelectChange} name = "value" style={{ width: 600 }} >
                             <Option value = {11}>Linear SVM</Option>
                             <Option value = {12}>Pre-school Model</Option>
+                            <Option value={12}>KNN</Option>
+                            <Option value={13}>Decision Tree</Option>
+                            <Option value={14}>MixedNB</Option>
+                            <Option value={15}>MLP</Option>
+                            <Option value={16}>Random Forest</Option>
+                            <Option value={17}>RBFSVM</Option>
                         </Select>
                     </div>
                     <div className = "activity-title-mid"> 
