@@ -186,4 +186,6 @@
 .switch-model-view{
     right: 0px;
     margin-right: 0px;
+    width: 100%;
+    text-align: right;
 }
