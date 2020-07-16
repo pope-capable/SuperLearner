@@ -35,7 +35,6 @@ function DataPP(props) {
         getFolders()
     }, [])
 
-    //   map identifiers into state
     const [data, setdata] = useState(initialState)
 
     // change action function

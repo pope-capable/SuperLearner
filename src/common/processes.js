@@ -49,6 +49,7 @@ function LiveProcesses(props) {
                             {item.status}
                         </div>
                         <div className = "reason">{item.failure_reason}</div>
+                        <div>{item.type}</div>
                     </div>
                 ))
             }
