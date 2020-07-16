@@ -69,7 +69,7 @@ function ProjectProcesses(props) {
         }else if(data.activeSection == 4){
             var activeComponent = <ActiveProcesses project = {props.match.params.slug} />
         }else if(data.activeSection == 2){
-            var activeComponent = <ModelTabView />
+            var activeComponent = <ModelTabView project = {props.match.params.slug}/>
         }
         return activeComponent
     }
