@@ -5,14 +5,15 @@ import { Radio } from 'antd';
 import { FolderGetWithHeaders, folderPostWithHeaders } from '../utils/Externalcalls';
 import { antdNotification } from './misc';
 import FolderContent from '../common/modals/folderContent';
-import ConfirmModal from './modals/simpleConfirm'
+import ConfirmModal from './modals/simpleConfirm';
+import PredictionModal from "./modals/modelPrediction"
 import {Switch, Select} from 'antd'
 
 function ModelsTabView(props) {
     const initialState = {
         misingDataPercentage: 0,
         openFolder: false,
-        uploads: null,
+        uploads: [],
         useFile: {},
         location: "",
         studyId: "",
@@ -23,8 +24,12 @@ function ModelsTabView(props) {
         projectId: props.project,
         value: null,
         models: [],
-        type: "model"
+        type: "model",
+        showPrediction: false,
+        slectedModel: null
       };
+
+    //   const [modelPredictiondata, setmodelPredictiondata] = useState()
 
       const [models, setmodels] = useState([])
 
@@ -45,6 +50,10 @@ function ModelsTabView(props) {
 
     function closeModal(){
         setdata({...data, openFolder: false, showConfirm: false})
+    }
+
+    function closePredictionModal(){
+        setdata({...data, showPrediction: false})
     }
 
     function openUploads() {
@@ -99,6 +108,10 @@ function ModelsTabView(props) {
         })
     }
 
+    function showPrediction(useModel) {
+        setdata({...data, showPrediction: true, slectedModel: useModel})
+    }
+
 
     return (
         <div>
@@ -110,13 +123,24 @@ function ModelsTabView(props) {
                 <div className = "dpp-view">
                     {
                         models.map((item, index) => (
-                            <div className = "ptc">
-                                {item.name}
-                                <div className = "reason">{item.type}</div>
-                                <div></div>
+                            <div className = "ptq">
+                                <div className = "model-info">
+                                    <div>
+                                        {item.name}
+                                    </div>
+                                    <div className = "reason">{item.type}</div>
+                                </div>
+                                <div>
+                                    <button className = "predict-button" onClick = {() => showPrediction(item)}>
+                                        Predict
+                                    </button>
+                                </div>
                             </div>
                         ))
                     }
+                                {
+                data.showPrediction ? <PredictionModal projectId = {data.projectId} preSetModel = {data.slectedModel} folders = {data.uploads} cancel = {() => closePredictionModal()} /> : ""
+            }
         </div> : 
                 <div className = "dpp-view">
             <div className = "dpp-row">
