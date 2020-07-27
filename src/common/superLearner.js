@@ -14,6 +14,8 @@ function SuperlearnerTabView(props) {
         misingDataPercentage: 0,
         openFolder: false,
         uploads: [],
+        metaModel: [{name: "Logistic regression", value: 1}, {name: "Extra tree", value: 2}],
+        selectedMeta: null,
         useFile: {},
         location: "",
         studyId: "",
@@ -92,6 +94,10 @@ function SuperlearnerTabView(props) {
           });
     }
 
+    function changeFSOption(event) {
+        setdata({...data, selectedMeta: event.target.value})
+    }
+
     function confirmCreation() {
         setdata({...data, showConfirm: true})
     }
@@ -116,7 +122,7 @@ function SuperlearnerTabView(props) {
     return (
         <div>
             <div className = "switch-model-view">
-            Switch to created models <Switch defaultChecked = {false} onChange={onChange} />
+            Switch to created super-learner models <Switch defaultChecked = {false} onChange={onChange} />
             </div>
             {
                 data.showCreated ?
@@ -162,24 +168,18 @@ function SuperlearnerTabView(props) {
             </div>
             <div className = "dpp-row">
                 <div className = "dpp-sf">
+                Select Meta model option
                     <div className = "activity-title-mid"> 
-                        <Select defaultValue="Select Model Script" onChange = {handleSelectChange} name = "value" style={{ width: 600 }} >
-                            <Option value = {11}>Linear SVM</Option>
-                            <Option value={12}>KNN</Option>
-                            <Option value={13}>Decision Tree</Option>
-                            <Option value={14}>MixedNB</Option>
-                            <Option value={15}>MLP</Option>
-                            <Option value={16}>Random Forest</Option>
-                            <Option value={17}>RBFSVM</Option>
-                        </Select>
-                    </div>
-                    <div className = "activity-title-mid"> 
-                        <span className="input-tag">Study Id</span>
-                        <input onChange = {e => handleChange(e)} name = "studyId" className = "custom-input" prefix = "Runner" />
-                    </div>
-                    <div className = "activity-title-mid"> 
-                        <span className="input-tag">Outcome ID</span>
-                        <input onChange = {e => handleChange(e)} name = "outcomeId" className = "custom-input" prefix = "Runner" />
+                        <Radio.Group onChange = {e => changeFSOption(e)} value={data.fsValue}>
+                            {
+                                data.metaModel.map((item, index) => (
+                                <div>
+                                    <Radio value={item.value} />
+                                    {item.name}
+                                </div>
+                                ))
+                            }
+                        </Radio.Group>
                     </div>
                 </div>
             </div>
