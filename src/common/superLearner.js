@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import info from '../assets/images/info.png'
 import file from '../assets/images/file.png'
+import gruid from '../assets/images/gruid.png'
 import { Radio } from 'antd';
 import { FolderGetWithHeaders, folderPostWithHeaders } from '../utils/Externalcalls';
 import { antdNotification } from './misc';
 import FolderContent from '../common/modals/folderContent';
+import ModelListSelect from '../common/modals/modelSelect';
 import ConfirmModal from './modals/simpleConfirm';
 import PredictionModal from "./modals/modelPrediction"
 import {Switch, Select} from 'antd'
@@ -15,6 +17,7 @@ function SuperlearnerTabView(props) {
         openFolder: false,
         uploads: [],
         metaModel: [{name: "Logistic regression", value: 1}, {name: "Extra tree", value: 2}],
+        showModalSelect: false,
         selectedMeta: null,
         useFile: {},
         location: "",
@@ -54,12 +57,20 @@ function SuperlearnerTabView(props) {
         setdata({...data, openFolder: false, showConfirm: false})
     }
 
+    function closeModel(){
+        setdata({...data, showModalSelect: false, showConfirm: false})
+    }
+
     function closePredictionModal(){
         setdata({...data, showPrediction: false})
     }
 
     function openUploads() {
         setdata({...data, openFolder: true})
+    }
+
+    function openmodels() {
+        setdata({...data, showModalSelect: true})
     }
 
     function getFolders() {
@@ -155,7 +166,8 @@ function SuperlearnerTabView(props) {
                         <span className="input-tag">Output name</span>
                         <input onChange = {e => handleChange(e)} name = "output" className = "custom-input" prefix = "Runner" />
                     </div>
-                    <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders
+                    <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders<br/>
+                    <img onClick = {e => openmodels()} className = "cloud-image" src = {gruid} /> select component models
                 </div>
             </div>
             <div>
@@ -170,7 +182,7 @@ function SuperlearnerTabView(props) {
                 <div className = "dpp-sf">
                 Select Meta model option
                     <div className = "activity-title-mid"> 
-                        <Radio.Group onChange = {e => changeFSOption(e)} value={data.fsValue}>
+                        <Radio.Group onChange = {e => changeFSOption(e)} value={data.selectedMeta}>
                             {
                                 data.metaModel.map((item, index) => (
                                 <div>
@@ -191,6 +203,9 @@ function SuperlearnerTabView(props) {
             }
             {
                 data.showConfirm ? <ConfirmModal cancel = {() => closeModal()} confirm = {() => createModel()} message = {"Confirm project creation, this will affect your available disk space as new file directories will be created"}/> : ""
+            }
+                        {
+                data.showModalSelect ? <ModelListSelect projectId = {data.projectId} models = {models} folders = {data.uploads} cancel = {() => closeModel()} /> : ""
             }
         </div>            }
         </div>
