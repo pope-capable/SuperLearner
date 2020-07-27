@@ -19,6 +19,7 @@ function SuperlearnerTabView(props) {
         metaModel: [{name: "Logistic regression", value: 1}, {name: "Extra tree", value: 2}],
         showModalSelect: false,
         selectedMeta: null,
+        compositeModels: [],
         useFile: {},
         location: "",
         studyId: "",
@@ -73,6 +74,11 @@ function SuperlearnerTabView(props) {
         setdata({...data, showModalSelect: true})
     }
 
+    function CompositeModels(modelsArray) {
+        setdata({...data, compositeModels: modelsArray})
+        console.log("MEEKO", modelsArray, data.compositeModels)
+    }
+
     function getFolders() {
         FolderGetWithHeaders(`folders/project/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(foldersCreated => {
             setdata({...data, uploads: foldersCreated.data.data})
@@ -80,6 +86,8 @@ function SuperlearnerTabView(props) {
             antdNotification("error", "Fetch Failed", "Error fetching folders, please ensure a stable connection and reload screen")
         })
     }
+
+
 
     function createModel() {
         folderPostWithHeaders("process/create", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
@@ -166,17 +174,20 @@ function SuperlearnerTabView(props) {
                         <span className="input-tag">Output name</span>
                         <input onChange = {e => handleChange(e)} name = "output" className = "custom-input" prefix = "Runner" />
                     </div>
-                    <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders<br/>
-                    <img onClick = {e => openmodels()} className = "cloud-image" src = {gruid} /> select component models
                 </div>
             </div>
             <div>
+            <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders<br/>
                 {
                     data.location ? 
                     <div>                
                         File selected: {data.useFile.name}
                     </div> : ""
                 }
+            </div>
+            <div>
+                <img onClick = {e => openmodels()} className = "cloud-image" src = {gruid} /> select component models
+                    <div>{data.compositeModels.length} Models selected</div>
             </div>
             <div className = "dpp-row">
                 <div className = "dpp-sf">
@@ -205,7 +216,7 @@ function SuperlearnerTabView(props) {
                 data.showConfirm ? <ConfirmModal cancel = {() => closeModal()} confirm = {() => createModel()} message = {"Confirm project creation, this will affect your available disk space as new file directories will be created"}/> : ""
             }
                         {
-                data.showModalSelect ? <ModelListSelect projectId = {data.projectId} models = {models} folders = {data.uploads} cancel = {() => closeModel()} /> : ""
+                data.showModalSelect ? <ModelListSelect projectId = {data.projectId} passCmodels = {CompositeModels} models = {models} folders = {data.uploads} cancel = {() => closeModel()} /> : ""
             }
         </div>            }
         </div>
