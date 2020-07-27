@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import { Upload, message, Button } from 'antd';
+import { Upload, message, Button, Checkbox } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Onefile from "../file"
 import Uploader from '../../utils/upload'
 import empty from '../../assets/images/nofile.png'
+import micon from '../../assets/images/micon.png'
 import folder from '../../assets/images/folder2.png'
 import "../../styles/modals.css"
 import { FolderGetWithHeaders } from '../../utils/Externalcalls';
@@ -48,10 +49,10 @@ function ModelListSelect(props) {
     }
 
     function styleselected(styleme) {
-        if(data.pontFolder.id == styleme.id){
-            var styleFolder = "one-folder-selected"
+        if(data.selectedmodels.indexOf(styleme.location) > -1){
+            var styleFolder = "one-folder-selected-2"
         }else{
-            var styleFolder = "one-folder"
+            var styleFolder = "one-folder-2"
         }
         return styleFolder
     }
@@ -78,6 +79,18 @@ function ModelListSelect(props) {
         setdata({...data, folderSelected: false})
     }
 
+    function modelSelector(event, useCb) {
+        if (event.target.checked){
+            data.selectedmodels.push(useCb.location)
+        }else {
+            const index = data.selectedmodels.indexOf(useCb.location)
+            if (index > -1){
+                data.selectedmodels.splice(index, 1)
+            }
+        }
+        props.passCmodels(data.selectedmodels)
+    }
+
     return (
         <div className = "file-modal">
             <div className='file-modal-content'>
@@ -87,15 +100,18 @@ function ModelListSelect(props) {
                             {
                                 data.models.map((item, index) => (
                                     <div onClick = {() => putpontFolder(item)} className = {styleselected(item)}>   
-                                        <img src = {folder} />
+                                        <img src = {micon} className = "eots" />
                                         <div>
                                         {item.name}
+                                        </div>
+                                        <div className = "move-cb">
+                                            <Checkbox onChange = {e => modelSelector(e, item)} />
                                         </div>
                                     </div>
                                 ))
                             }
                         </div>
-                        <div><button disabled = {data.isloading} onClick = {() => showContent()} className = "next-button">Next</button></div>
+                        <div><button disabled = {data.isloading} onClick = {props.cancel} className = "next-button">Next</button></div>
                         </div> 
                         </div>
         </div>
