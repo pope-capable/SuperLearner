@@ -32,7 +32,9 @@ function SuperlearnerTabView(props) {
         models: [],
         type: "model",
         showPrediction: false,
-        slectedModel: null
+        slectedModel: null,
+        studyId: null,
+        outcomeId: null
       };
 
     //   const [modelPredictiondata, setmodelPredictiondata] = useState()
@@ -173,6 +175,14 @@ function SuperlearnerTabView(props) {
                     <div className = "activity-title-mid"> 
                         <span className="input-tag">Output name</span>
                         <input onChange = {e => handleChange(e)} name = "output" className = "custom-input" prefix = "Runner" />
+                    </div>
+                    <div className = "activity-title-mid"> 
+                        <span className="input-tag">StudyId</span>
+                        <input onChange = {e => handleChange(e)} name = "studyId" className = "custom-input" prefix = "Runner" />
+                    </div>
+                    <div className = "activity-title-mid"> 
+                        <span className="input-tag">OutcomeId</span>
+                        <input onChange = {e => handleChange(e)} name = "outcomeId" className = "custom-input" prefix = "Runner" />
                     </div>
                 </div>
             </div>
