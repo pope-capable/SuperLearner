@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import info from '../assets/images/info.png'
 import file from '../assets/images/file.png'
+import gruid from '../assets/images/gruid.png'
 import { Radio } from 'antd';
 import { FolderGetWithHeaders, folderPostWithHeaders } from '../utils/Externalcalls';
 import { antdNotification } from './misc';
 import FolderContent from '../common/modals/folderContent';
+import ModelListSelect from '../common/modals/modelSelect';
 import ConfirmModal from './modals/simpleConfirm';
 import PredictionModal from "./modals/modelPrediction"
 import {Switch, Select} from 'antd'
 
-function ModelsTabView(props) {
+function SuperlearnerTabView(props) {
     const initialState = {
         misingDataPercentage: 0,
         openFolder: false,
         uploads: [],
+        metaModel: [{name: "Logistic regression", value: 1}, {name: "Extra tree", value: 2}],
+        showModalSelect: false,
+        selectedMeta: null,
+        compositeModels: [],
         useFile: {},
         location: "",
         studyId: "",
@@ -24,14 +30,17 @@ function ModelsTabView(props) {
         projectId: props.project,
         value: null,
         models: [],
-        type: "model",
+        type: "Superlearner",
         showPrediction: false,
         slectedModel: null
       };
 
     //   const [modelPredictiondata, setmodelPredictiondata] = useState()
 
-      const [models, setmodels] = useState([])
+    const [models, setmodels] = useState([])
+
+    const [superModels, setsuperModels] = useState([])
+
 
           //   map identifiers into state
     const [data, setdata] = useState(initialState)
@@ -42,6 +51,7 @@ function ModelsTabView(props) {
     useEffect(() => {
         getFolders()
         getModels()
+        getSuperModels()
     }, [])
 
     function selectFile(dot) {
@@ -52,12 +62,24 @@ function ModelsTabView(props) {
         setdata({...data, openFolder: false, showConfirm: false})
     }
 
+    function closeModel(){
+        setdata({...data, showModalSelect: false, showConfirm: false})
+    }
+
     function closePredictionModal(){
         setdata({...data, showPrediction: false})
     }
 
     function openUploads() {
         setdata({...data, openFolder: true})
+    }
+
+    function openmodels() {
+        setdata({...data, showModalSelect: true})
+    }
+
+    function CompositeModels(modelsArray) {
+        setdata({...data, compositeModels: modelsArray})
     }
 
     function getFolders() {
@@ -69,7 +91,7 @@ function ModelsTabView(props) {
     }
 
     function createModel() {
-        folderPostWithHeaders("process/create", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
+        folderPostWithHeaders("process/super-create", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
             antdNotification("success", "Success", projectCreated.data.message)
             window.location.reload()
         }).catch(error => {
@@ -92,6 +114,10 @@ function ModelsTabView(props) {
           });
     }
 
+    function changeFSOption(event) {
+        setdata({...data, selectedMeta: event.target.value})
+    }
+
     function confirmCreation() {
         setdata({...data, showConfirm: true})
     }
@@ -108,6 +134,14 @@ function ModelsTabView(props) {
         })
     }
 
+    function getSuperModels() {
+        FolderGetWithHeaders(`super/created/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(superlearvercreated => {
+            setsuperModels(superlearvercreated.data.data)
+        }).catch(error => {
+            antdNotification("error", "Fetch Failed", "Error fetching folders, please ensure a stable connection and reload screen")
+        })
+    }
+
     function showPrediction(useModel) {
         setdata({...data, showPrediction: true, slectedModel: useModel})
     }
@@ -116,19 +150,18 @@ function ModelsTabView(props) {
     return (
         <div>
             <div className = "switch-model-view">
-            Switch to created models <Switch defaultChecked = {false} onChange={onChange} />
+            Switch to created super-learner models <Switch defaultChecked = {false} onChange={onChange} />
             </div>
             {
                 data.showCreated ?
                 <div className = "dpp-view">
                     {
-                        models.map((item, index) => (
+                        superModels.map((item, index) => (
                             <div className = "ptq">
                                 <div className = "model-info">
                                     <div>
                                         {item.name}
                                     </div>
-                                    <div className = "reason">{item.type}</div>
                                 </div>
                                 <div>
                                     <button className = "predict-button" onClick = {() => showPrediction(item)}>
@@ -149,10 +182,10 @@ function ModelsTabView(props) {
                         <span className="input-tag">Output name</span>
                         <input onChange = {e => handleChange(e)} name = "output" className = "custom-input" prefix = "Runner" />
                     </div>
-                    <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders
                 </div>
             </div>
             <div>
+            <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders<br/>
                 {
                     data.location ? 
                     <div>                
@@ -160,26 +193,24 @@ function ModelsTabView(props) {
                     </div> : ""
                 }
             </div>
+            <div>
+                <img onClick = {e => openmodels()} className = "cloud-image" src = {gruid} /> select component models
+                    <div>{data.compositeModels.length} Models selected</div>
+            </div>
             <div className = "dpp-row">
                 <div className = "dpp-sf">
+                Select Meta model option
                     <div className = "activity-title-mid"> 
-                        <Select defaultValue="Select Model Script" onChange = {handleSelectChange} name = "value" style={{ width: 600 }} >
-                            <Option value = {11}>Linear SVM</Option>
-                            <Option value={12}>KNN</Option>
-                            <Option value={13}>Decision Tree</Option>
-                            <Option value={14}>MixedNB</Option>
-                            <Option value={15}>MLP</Option>
-                            <Option value={16}>Random Forest</Option>
-                            <Option value={17}>RBFSVM</Option>
-                        </Select>
-                    </div>
-                    <div className = "activity-title-mid"> 
-                        <span className="input-tag">Study Id</span>
-                        <input onChange = {e => handleChange(e)} name = "studyId" className = "custom-input" prefix = "Runner" />
-                    </div>
-                    <div className = "activity-title-mid"> 
-                        <span className="input-tag">Outcome ID</span>
-                        <input onChange = {e => handleChange(e)} name = "outcomeId" className = "custom-input" prefix = "Runner" />
+                        <Radio.Group onChange = {e => changeFSOption(e)} value={data.selectedMeta}>
+                            {
+                                data.metaModel.map((item, index) => (
+                                <div>
+                                    <Radio value={item.value} />
+                                    {item.name}
+                                </div>
+                                ))
+                            }
+                        </Radio.Group>
                     </div>
                 </div>
             </div>
@@ -192,9 +223,12 @@ function ModelsTabView(props) {
             {
                 data.showConfirm ? <ConfirmModal cancel = {() => closeModal()} confirm = {() => createModel()} message = {"Confirm project creation, this will affect your available disk space as new file directories will be created"}/> : ""
             }
+                        {
+                data.showModalSelect ? <ModelListSelect projectId = {data.projectId} passCmodels = {CompositeModels} models = {models} folders = {data.uploads} cancel = {() => closeModel()} /> : ""
+            }
         </div>            }
         </div>
     )
 }
 
-export default ModelsTabView
+export default SuperlearnerTabView
