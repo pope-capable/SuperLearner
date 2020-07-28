@@ -182,6 +182,14 @@ function SuperlearnerTabView(props) {
                         <span className="input-tag">Output name</span>
                         <input onChange = {e => handleChange(e)} name = "output" className = "custom-input" prefix = "Runner" />
                     </div>
+                    <div className = "activity-title-mid"> 
+                        <span className="input-tag">StudyId</span>
+                        <input onChange = {e => handleChange(e)} name = "studyId" className = "custom-input" prefix = "Runner" />
+                    </div>
+                    <div className = "activity-title-mid"> 
+                        <span className="input-tag">OutcomeId</span>
+                        <input onChange = {e => handleChange(e)} name = "outcomeId" className = "custom-input" prefix = "Runner" />
+                    </div>
                 </div>
             </div>
             <div>
