@@ -30,7 +30,7 @@ function SuperlearnerTabView(props) {
         projectId: props.project,
         value: null,
         models: [],
-        type: "model",
+        type: "Superlearner",
         showPrediction: false,
         slectedModel: null,
         studyId: null,
@@ -39,7 +39,10 @@ function SuperlearnerTabView(props) {
 
     //   const [modelPredictiondata, setmodelPredictiondata] = useState()
 
-      const [models, setmodels] = useState([])
+    const [models, setmodels] = useState([])
+
+    const [superModels, setsuperModels] = useState([])
+
 
           //   map identifiers into state
     const [data, setdata] = useState(initialState)
@@ -50,6 +53,7 @@ function SuperlearnerTabView(props) {
     useEffect(() => {
         getFolders()
         getModels()
+        getSuperModels()
     }, [])
 
     function selectFile(dot) {
@@ -78,7 +82,6 @@ function SuperlearnerTabView(props) {
 
     function CompositeModels(modelsArray) {
         setdata({...data, compositeModels: modelsArray})
-        console.log("MEEKO", modelsArray, data.compositeModels)
     }
 
     function getFolders() {
@@ -89,10 +92,8 @@ function SuperlearnerTabView(props) {
         })
     }
 
-
-
     function createModel() {
-        folderPostWithHeaders("process/create", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
+        folderPostWithHeaders("process/super-create", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
             antdNotification("success", "Success", projectCreated.data.message)
             window.location.reload()
         }).catch(error => {
@@ -135,6 +136,14 @@ function SuperlearnerTabView(props) {
         })
     }
 
+    function getSuperModels() {
+        FolderGetWithHeaders(`super/created/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(superlearvercreated => {
+            setsuperModels(superlearvercreated.data.data)
+        }).catch(error => {
+            antdNotification("error", "Fetch Failed", "Error fetching folders, please ensure a stable connection and reload screen")
+        })
+    }
+
     function showPrediction(useModel) {
         setdata({...data, showPrediction: true, slectedModel: useModel})
     }
@@ -149,13 +158,12 @@ function SuperlearnerTabView(props) {
                 data.showCreated ?
                 <div className = "dpp-view">
                     {
-                        models.map((item, index) => (
+                        superModels.map((item, index) => (
                             <div className = "ptq">
                                 <div className = "model-info">
                                     <div>
                                         {item.name}
                                     </div>
-                                    <div className = "reason">{item.type}</div>
                                 </div>
                                 <div>
                                     <button className = "predict-button" onClick = {() => showPrediction(item)}>
