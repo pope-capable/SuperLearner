@@ -32,9 +32,7 @@ function SuperlearnerTabView(props) {
         models: [],
         type: "Superlearner",
         showPrediction: false,
-        slectedModel: null,
-        studyId: null,
-        outcomeId: null
+        slectedModel: null
       };
 
     //   const [modelPredictiondata, setmodelPredictiondata] = useState()
