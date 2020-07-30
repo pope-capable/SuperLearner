@@ -64,7 +64,7 @@
 .activity-title-mid {
     display: flex;
     flex-direction: row;
-    margin: 10px;
+    /* margin: 10px; */
 }
 
 .activity-title-2 {

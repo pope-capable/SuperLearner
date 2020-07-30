@@ -36,6 +36,7 @@ function Projects() {
             antdNotification("error", "Fetch Failed", "Error fetching project details, please reload screen")
         })
     }
+    
     return (
         <div className = "page">
             <SideBar active = {1} notifications = {data.notifications} />

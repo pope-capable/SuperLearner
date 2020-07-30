@@ -27,15 +27,14 @@ function DataPP(props) {
         type: "Data-pp",
         projectId: props.project,
         act_column: null,
-        outc: null
+        outc: null,
+        misingDataPercentage: 0
       };
 
     useEffect(() => {
-        console.log("MEEK", props)
         getFolders()
     }, [])
 
-    //   map identifiers into state
     const [data, setdata] = useState(initialState)
 
     // change action function
@@ -60,7 +59,7 @@ function DataPP(props) {
     }
 
     function getFolders() {
-        FolderGetWithHeaders(`folders/project-uploads/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(foldersCreated => {
+        FolderGetWithHeaders(`folders/project/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(foldersCreated => {
             setdata({...data, uploads: foldersCreated.data.data})
         }).catch(error => {
             antdNotification("error", "Fetch Failed", "Error fetching folders, please ensure a stable connection and reload screen")
@@ -73,6 +72,23 @@ function DataPP(props) {
         }
         if(direction == "+" && data.sd < 10){
             setdata({...data, sd: data.sd + 1})
+        }
+    }
+
+    function changeMD(direction) {
+        if(direction == "-" && data.misingDataPercentage > 0){
+            setdata({...data, misingDataPercentage: data.misingDataPercentage - 5})
+        }
+        if(direction == "+" && data.misingDataPercentage < 100){
+            setdata({...data, misingDataPercentage: data.misingDataPercentage + 5})
+        }
+    }
+
+    function manualMDchange(event) {
+        if(event.target.value < 101 && event.target.value > -1){
+            setdata({...data, misingDataPercentage: event.target.value})
+        }else{
+            setdata({...data, misingDataPercentage: 0})
         }
     }
 
@@ -97,6 +113,7 @@ function DataPP(props) {
         })
     }
 
+    // this function adds the final data entry section to the data pre-processing screen
     function finalSection(lastStep) {
         if(lastStep == 2 && data.location){
             var lastData =
@@ -139,6 +156,21 @@ function DataPP(props) {
                     <button onClick = {e => confirmCreation()} className = "proceed-button-2">Next</button>
                 </div>
             </div>
+        }else if(lastStep == 1 && data.location){
+            var lastData =
+            <div className = "dpp-sd">
+                <div>Remove missing data row Above</div>
+                <div className = "dpp-pom">
+                    <div className = "dpp-roll">
+                    <div onClick = {e => changeMD("-")} className = "neg-sd">-</div>
+                    <input onChange = {e => manualMDchange(e)} value = {data.misingDataPercentage} className = "display-sd"/>
+                    <div onClick = {e => changeMD("+")} className = "pos-sd">+</div>
+                    </div>
+                </div>
+                <div className = "dpp-row">
+                    <button onClick = {e => confirmCreation()} className = "proceed-button-2">Next</button>
+                </div>
+            </div>
         }
         return lastData
     }
@@ -162,7 +194,7 @@ function DataPP(props) {
                 {data.value > 0 ?
                 <div className = "dpp-sf">
                     <div className = "activity-title-mid"> 
-                        <span class="input-tag">Output name</span>
+                        <span className="input-tag">Output name</span>
                         <input name = "output" onChange = {e => handleChange(e)} className = "custom-input" prefix = "Runner" />
                     </div>
                     <img onClick = {e => openUploads()} className = "cloud-image" src = {file} /> select file from upload folders
@@ -183,7 +215,7 @@ function DataPP(props) {
                 }
             </div>
             {
-                data.openFolder ? <FolderContent select = {selectFile} folder = {data.uploads} cancel = {() => closeModal()} /> : ""
+                data.openFolder ? <FolderContent select = {selectFile} folders = {data.uploads} cancel = {() => closeModal()} /> : ""
             }
             {
                 data.showConfirm ? <ConfirmModal cancel = {() => closeModal()} confirm = {() => createProcess()} message = {"Confirm project creation, this will affect your available disk space as new file directories will be created"} /> : ""

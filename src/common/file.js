@@ -1,18 +1,44 @@
-import React, { useState } from "react";
-import jsonIcon from "../assets/images/json.png";
-import excelIcon from "../assets/images/excel.png";
-import pdfIcon from "../assets/images/pdf.png";
-import unknownIcon from "../assets/images/unknown.png";
-import download from "../assets/images/down.png";
-import $ from "jquery";
-import "../styles/file.css";
+
+import React, { useState, useEffect } from 'react'
+import jsonIcon from "../assets/images/json.png"
+import excelIcon from "../assets/images/excel.png"
+import pdfIcon from "../assets/images/pdf.png"
+import csvIcon from "../assets/images/csv.png"
+import unknownIcon from "../assets/images/unknown.png"
+import download from "../assets/images/down.png"
+import $ from 'jquery';
+import "../styles/file.css"
+
 
 function Onefile(props) {
   const initialState = {
     selected: {},
   };
 
-  const [data, setdata] = useState(initialState);
+
+    useEffect(() => {
+    }, [])
+
+    const initialState = {
+        selected: {}
+      };
+
+    const [data, setdata] = useState(initialState)
+
+    function fittingIcon(data) {
+        if(data == "json"){
+            var bestIcon = jsonIcon
+        }else if(data == 'csv'){
+            var bestIcon = csvIcon
+        }else if(data == 'xlsx'){
+            var bestIcon = excelIcon
+        }else if(data == "pdf"){
+            var bestIcon = pdfIcon
+        }else{
+            var bestIcon = unknownIcon
+        }
+        return bestIcon
+    }
 
   function fittingIcon(data) {
     if (data == "json") {

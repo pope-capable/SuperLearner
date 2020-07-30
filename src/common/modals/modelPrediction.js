@@ -1,23 +1,33 @@
 import React, {useState, useEffect} from 'react'
-import { Upload, message, Button } from 'antd';
+import { Upload, message, Button, Input } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Onefile from "../file"
 import Uploader from '../../utils/upload'
 import empty from '../../assets/images/nofile.png'
 import folder from '../../assets/images/folder2.png'
 import "../../styles/modals.css"
-import { FolderGetWithHeaders } from '../../utils/Externalcalls';
+import { FolderGetWithHeaders, folderPostWithHeaders } from '../../utils/Externalcalls';
+import { antdNotification } from '../misc';
 
 
-function FolderContent(props) {
+function PredictionModal(props) {
     const initialState = {
         isLoading: true,
         files: [],
         folders: props.folders,
         newUpload: {},
         slected: {},
+        uploadedFile: null,
         pontFolder: {},
         folderSelected: false,
+        output: null,
+        modelType: props.preSetModel.type,
+        location: props.preSetModel.location,
+        location1: props.preSetModel.location1,
+        location2: props.preSetModel.location2,
+        projectId: props.projectId,
+        isloading: false,
+        type: "prediction"
     };
 
     const [folderFiles, setfolderFiles] = useState([])
@@ -40,9 +50,9 @@ function FolderContent(props) {
         getFiles()
     }
 
-    function getselectedLocation(location) {
-        setdata({...data, slected: location})
-        props.select(location)
+    function getselectedLocation(file) {
+        console.log("GH", file)
+        setdata({...data, slected: file, uploadedFile: file.location})
     }
 
     function styleselected(styleme) {
@@ -57,11 +67,9 @@ function FolderContent(props) {
     function putpontFolder(selectedFold) {
         var newSelect = JSON.parse(JSON.stringify(selectedFold))
         setdata({...data, pontFolder: newSelect})
-        // getFiles()
     }
 
     function showContent(){
-        // setdata({...data, isloading: true})
         FolderGetWithHeaders(`file/all/${data.pontFolder.id}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(filesInFolder => {
             setdata({...data, isloading: false, folderSelected: true})
             setfolderFiles(filesInFolder.data.data)
@@ -76,13 +84,42 @@ function FolderContent(props) {
         setdata({...data, folderSelected: false})
     }
 
+    function handleChange(event) {
+        setdata({
+            ...data,
+            [event.target.name]: event.target.value
+          });
+    }
+
+    function createModel() {
+        setdata({...data, isLoading: true})
+        if(props.type == 1){
+            folderPostWithHeaders("process/create_prediction", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
+                antdNotification("success", "Prediction Started", projectCreated.data.message)
+                props.cancel()
+            }).catch(error => {
+                antdNotification("error", "Project Creation Failed", error.message)
+                setdata({...data, showConfirm: false})
+            })
+        }else{
+            folderPostWithHeaders("super/create_prediction", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
+                antdNotification("success", "Super prediction Started", projectCreated.data.message)
+                props.cancel()
+            }).catch(error => {
+                antdNotification("error", "Pediction Creation Failed", error.message)
+                setdata({...data, showConfirm: false})
+            })
+        }
+
+    }
+
     return (
         <div className = "file-modal">
             <div className='file-modal-content'>
                 {
                     !data.folderSelected ? 
                     <div>
-                        <div className = "file-modal-title">Select Folder <div onClick = {props.cancel} className = "close-x">X</div></div>
+                        <div className = "file-modal-title">Select File for prediction <div onClick = {props.cancel} className = "close-x">X</div></div>
                         <div className = "file-modal-inner-content">
                             {
                                 data.folders.map((item, index) => (
@@ -99,11 +136,6 @@ function FolderContent(props) {
                         </div> :
                         <div>
                             <div className = "file-modal-title"><div onClick = {e => backFolder()} className = "back-link">back</div>Folder: {data.pontFolder.name}<div>{">" + data.slected.name}</div>
-                        {
-                            data.slected.name ? 
-                            <button className = "use-button" onClick = {props.cancel}>Use this</button>: 
-                            ""
-                        }
                             <div onClick = {props.cancel} className = "close-x">X</div></div>
                             <div className = "file-modal-inner-content">
                                 {
@@ -119,11 +151,10 @@ function FolderContent(props) {
                                     </div>
                                 }
                             </div>
-                            {data.pontFolder.name == "Uploads" ?
-                            <div className = "upload-button">
-                                <Uploader fileMeta = {data.pontFolder.id} updateFile = {fileUploaded} />
-                            </div> : 
-                            <div></div>}
+                            <div className = "prediction-space">
+                                <input name = "output" onChange = {e => handleChange(e)} className = "use-input" placeholder="enter output file name here" />
+                            <button className = "use-button" onClick = {e => createModel()}>{data.isloading ? "loading..." : "Start"}</button>
+                            </div>
                                 </div>
                             }
                         </div>
@@ -131,4 +162,4 @@ function FolderContent(props) {
     )
 }
 
-export default FolderContent
+export default PredictionModal
