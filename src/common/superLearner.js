@@ -172,7 +172,7 @@ function SuperlearnerTabView(props) {
                         ))
                     }
                                 {
-                data.showPrediction ? <PredictionModal projectId = {data.projectId} preSetModel = {data.slectedModel} folders = {data.uploads} cancel = {() => closePredictionModal()} /> : ""
+                data.showPrediction ? <PredictionModal projectId = {data.projectId} type = {2} preSetModel = {data.slectedModel} folders = {data.uploads} cancel = {() => closePredictionModal()} /> : ""
             }
         </div> : 
                 <div className = "dpp-view">

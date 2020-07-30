@@ -23,6 +23,8 @@ function PredictionModal(props) {
         output: null,
         modelType: props.preSetModel.type,
         location: props.preSetModel.location,
+        location1: props.preSetModel.location1,
+        location2: props.preSetModel.location2,
         projectId: props.projectId,
         isloading: false,
         type: "prediction"
@@ -91,13 +93,24 @@ function PredictionModal(props) {
 
     function createModel() {
         setdata({...data, isLoading: true})
-        folderPostWithHeaders("process/create_prediction", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
-            antdNotification("success", "Prediction Started", projectCreated.data.message)
-            props.cancel()
-        }).catch(error => {
-            antdNotification("error", "Project Creation Failed", error.message)
-            setdata({...data, showConfirm: false})
-        })
+        if(props.type == 1){
+            folderPostWithHeaders("process/create_prediction", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
+                antdNotification("success", "Prediction Started", projectCreated.data.message)
+                props.cancel()
+            }).catch(error => {
+                antdNotification("error", "Project Creation Failed", error.message)
+                setdata({...data, showConfirm: false})
+            })
+        }else{
+            folderPostWithHeaders("super/create_prediction", data, {"token": JSON.parse(localStorage.getItem("token"))}).then(projectCreated => {
+                antdNotification("success", "Super prediction Started", projectCreated.data.message)
+                props.cancel()
+            }).catch(error => {
+                antdNotification("error", "Pediction Creation Failed", error.message)
+                setdata({...data, showConfirm: false})
+            })
+        }
+
     }
 
     return (
