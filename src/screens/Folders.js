@@ -3,6 +3,7 @@ import { projectGetWithHeaders } from '../utils/Externalcalls';
 import { antdNotification } from '../common/misc';
 import SideBar from '../common/SideBar'
 import "../styles/projects.css"
+import "../styles/folder.css"
 import loadIcon from "../assets/images/load.gif"
 import OneProject from '../common/OneProject';
 import classic from '../assets/images/empty.png'
@@ -51,10 +52,20 @@ function Folders() {
                 </div> :
                 <div>
                     {data.projects.length > 0 ?
-                    <div>
+                    <div className = "hold-3">
                         {data.projects.map((item, index) => (
-                            <div>
-                                {item.project.title}
+                            <div className = "project-mile">
+                                <div className = "fold-tile">
+                                    <img src = {classic} className = "fold-image" />
+                                </div>
+                                <div className = "fold-tile-detail">
+                                    <div>
+                                    {item.project.title}
+                                    </div>
+                                    <div>
+                                    {item.project.createdAt}
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div> : 

@@ -1,0 +1,31 @@
+.hold-3 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.project-mile {
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    min-width: 300px;
+    max-width: 300px;
+    box-shadow: 10px 0 50px -1px rgba(0, 0, 0, 0.1);
+    flex: 1 0 21%;
+    display: flex;
+}
+
+.fold-image {
+    width: 50px;
+
+}
+
+.fold-tile {
+    width: 30%;
+}
+
+.fold-tile-detail {
+    width: calc(70% - 20px);
+    font-size: 20px;
+}
