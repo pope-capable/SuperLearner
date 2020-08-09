@@ -18,11 +18,7 @@ function Onefile(props) {
 
     useEffect(() => {
     }, [])
-
-    const initialState = {
-        selected: {}
-      };
-
+    
     const [data, setdata] = useState(initialState)
 
     function fittingIcon(data) {
