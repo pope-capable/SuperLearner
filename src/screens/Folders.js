@@ -3,9 +3,11 @@ import { projectGetWithHeaders } from '../utils/Externalcalls';
 import { antdNotification } from '../common/misc';
 import SideBar from '../common/SideBar'
 import "../styles/projects.css"
+import "../styles/folder.css"
 import loadIcon from "../assets/images/load.gif"
 import OneProject from '../common/OneProject';
 import classic from '../assets/images/empty.png'
+import ViewFolders from '../common/modals/projectFoldersView'
 
 function Folders() {
 
@@ -15,7 +17,9 @@ function Folders() {
         user: user,
         isLoading: true,
         projects: [],
-        notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}]
+        notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}],
+        showContent: false,
+        forProject: ""
     };
 
     const [data, setdata] = useState(initialState)
@@ -37,6 +41,14 @@ function Folders() {
         })
     }
 
+    function showPFolders (projectId) {
+        setdata({...data, forProject: projectId, showContent: true})
+    }
+
+    function closeModal() {
+        setdata({...data, showContent: false})
+    }
+
     return (
         <div className = "page">
             <SideBar active = {3} />
@@ -51,10 +63,20 @@ function Folders() {
                 </div> :
                 <div>
                     {data.projects.length > 0 ?
-                    <div>
+                    <div className = "hold-3">
                         {data.projects.map((item, index) => (
-                            <div>
-                                {item.project.title}
+                            <div onClick = {() => showPFolders(item.project.id)} className = "project-mile">
+                                <div className = "fold-tile">
+                                    <img src = {classic} className = "fold-image" />
+                                </div>
+                                <div className = "fold-tile-detail">
+                                    <div className = "folder-name">
+                                    {item.project.title}
+                                    </div>
+                                    <div className = "fold-ceat">
+                                       createdAt: {item.project.createdAt}
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div> : 
@@ -66,6 +88,9 @@ function Folders() {
                 </div>
             }
             </div>
+            {
+                data.showContent ? <ViewFolders project = {data.forProject} cancel = {() => closeModal()} /> : ""
+            }
         </div>
     )
 }

@@ -7,17 +7,20 @@ import empty from '../../assets/images/nofile.png'
 import folder from '../../assets/images/folder2.png'
 import "../../styles/modals.css"
 import { FolderGetWithHeaders } from '../../utils/Externalcalls';
+import loadIcon from "../../assets/images/load.gif"
 
 
-function FolderContent(props) {
+
+function ProjectFolderContent(props) {
     const initialState = {
         isLoading: true,
         files: [],
-        folders: props.folders,
+        folders: [],
         newUpload: {},
         slected: {},
         pontFolder: {},
         folderSelected: false,
+        openProject: props.project
     };
 
     const [folderFiles, setfolderFiles] = useState([])
@@ -26,10 +29,20 @@ function FolderContent(props) {
 
 
     useEffect(() => {
+        getFolders()
     }, [])
+    
+    function getFolders() {
+        FolderGetWithHeaders(`folders/project/${data.openProject}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(filesInFolder => {
+            setdata({...data, folders: filesInFolder.data.data, isloading: false})
+        }).catch(err => {
+            setdata({...data, isloading: false})
+        })
+    }
 
     function getFiles() {
         FolderGetWithHeaders(`file/all/${data.pontFolder.id}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(filesInFolder => {
+            console.log("GOT HERE 2", filesInFolder)
             setfolderFiles(filesInFolder.data.data)
         }).catch(err => {
             setdata({...data, isloading: false})
@@ -37,12 +50,12 @@ function FolderContent(props) {
     }
 
     function fileUploaded(newFile) {
+        console.log("GOT HERE")
         getFiles()
     }
 
     function getselectedLocation(location) {
         setdata({...data, slected: location})
-        props.select(location)
     }
 
     function styleselected(styleme) {
@@ -79,6 +92,12 @@ function FolderContent(props) {
     return (
         <div className = "file-modal">
             <div className='file-modal-content'>
+            {
+                data.folders.length < 1 ?
+                <div className = "loader-container">
+                    <img className = "loader-image" src = {loadIcon} />
+                </div> :
+                <div>
                 {
                     !data.folderSelected ? 
                     <div>
@@ -99,11 +118,6 @@ function FolderContent(props) {
                         </div> :
                         <div>
                             <div className = "file-modal-title"><div onClick = {e => backFolder()} className = "back-link">back</div>Folder: {data.pontFolder.name}<div>{">" + data.slected.name}</div>
-                        {
-                            data.slected.name ? 
-                            <button className = "use-button" onClick = {props.cancel}>Use this</button>: 
-                            ""
-                        }
                             <div onClick = {props.cancel} className = "close-x">X</div></div>
                             <div className = "file-modal-inner-content">
                                 {
@@ -126,9 +140,11 @@ function FolderContent(props) {
                             <div></div>}
                                 </div>
                             }
+                            </div>
+}
                         </div>
         </div>
     )
 }
 
-export default FolderContent
+export default ProjectFolderContent
