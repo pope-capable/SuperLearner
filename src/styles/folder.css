@@ -14,7 +14,13 @@
     box-shadow: 10px 0 50px -1px rgba(0, 0, 0, 0.1);
     flex: 1 0 21%;
     display: flex;
+    transition: transform .4s;
 }
+
+.project-mile:hover {
+    transform: scale(1.2);
+    background-color: #fde0aa7a;
+  }
 
 .fold-image {
     width: 50px;
@@ -27,5 +33,12 @@
 
 .fold-tile-detail {
     width: calc(70% - 20px);
+}
+
+.folder-name {
     font-size: 20px;
+}
+
+.fold-ceat {
+    font-size: 10px;
 }
