@@ -51,7 +51,6 @@ function PredictionModal(props) {
     }
 
     function getselectedLocation(file) {
-        console.log("GH", file)
         setdata({...data, slected: file, uploadedFile: file.location})
     }
 

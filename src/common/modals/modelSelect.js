@@ -28,7 +28,7 @@ function ModelListSelect(props) {
 
 
     useEffect(() => {
-        console.log("MEEK", props)
+
     }, [])
 
     function getFiles() {

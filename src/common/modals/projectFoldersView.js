@@ -42,7 +42,6 @@ function ProjectFolderContent(props) {
 
     function getFiles() {
         FolderGetWithHeaders(`file/all/${data.pontFolder.id}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(filesInFolder => {
-            console.log("GOT HERE 2", filesInFolder)
             setfolderFiles(filesInFolder.data.data)
         }).catch(err => {
             setdata({...data, isloading: false})
@@ -50,7 +49,6 @@ function ProjectFolderContent(props) {
     }
 
     function fileUploaded(newFile) {
-        console.log("GOT HERE")
         getFiles()
     }
 
