@@ -10,7 +10,7 @@ function Auth(props) {
     const { dispatch } = React.useContext(AuthenticationContext);
 
     useEffect(() => {
-        console.log("MEEK", props)
+        
     }, [])
 
     // initialize input identifiers
