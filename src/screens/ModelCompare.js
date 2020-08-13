@@ -34,6 +34,7 @@ function ModelComparison(props) {
         studyId: "",
         outcomeId: "",
         outcome: "",
+        output: "",
         showConfirm: false,
         showCreated: false,
         projectId: props.match.params.slug,
@@ -112,7 +113,7 @@ function ModelComparison(props) {
             antdNotification("error", "Fetch Failed", "Error fetching folders, please ensure a stable connection and reload screen")
         })
     }
-    
+
     function selectFile(dot) {
         setdata({...data, useFile: dot, location: dot.location})
     }
