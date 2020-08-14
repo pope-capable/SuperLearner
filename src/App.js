@@ -11,6 +11,7 @@ import Teams from "../src/screens/Team"
 import CreateProject from "../src/screens/CreateProject"
 import ProjectSpace from "../src/screens/ProjectSpace"
 import ProjectProcesses from "../src/screens/ProjectProcesses"
+import ModelCompare from "../src/screens/ModelCompare"
 
 import './App.css';
 import reducer from './utils/reducer'
@@ -40,6 +41,7 @@ function App() {
             <Route exact path = "/create-project" component = {CreateProject} />
             <Route exact path = "/project-space/:slug" component = {ProjectSpace} />
             <Route exact path = "/project/:slug/:slug2" component = {ProjectProcesses} />
+            <Route exact path = "/models-compare/:slug/:slug2" component = {ModelCompare} />
           </Switch>
         </Router>
       </AuthenticationContext.Provider>
