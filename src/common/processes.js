@@ -34,25 +34,42 @@ function LiveProcesses(props) {
     function getProcesses() {
         FolderGetWithHeaders(`process/all/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(processesLive => {
             setdata({...data, processes: processesLive.data.data})
+            console.log("MEEk", processesLive)
         }).catch(error => {
             antdNotification("error", "Fetch Failed", "Error fetching processes, please ensure a stable connection and reload screen")
         })
     }
+
+    function Download(url) {
+        document.getElementById("my_iframe").src = url;
+      }
 
     return(
         <div className = "dpp-view">
             {
                 data.processes.map((item, index) => (
                     <div className = {classProcesses(item.status)}>
-                        {item.name}
-                        <div>
-                            {item.status}
+                        <div className = "model-info">
+                            {item.name}
+                            <div>
+                                {item.status}
+                            </div>
+                            <div className = "reason">{item.failure_reason}</div>
+                            <div>{item.type}</div>
                         </div>
-                        <div className = "reason">{item.failure_reason}</div>
-                        <div>{item.type}</div>
+                        <div>
+                            {
+                                item.status == "Completed" && item.files_main ? 
+                                <button className = "predict-button" onClick = {() => Download(item.files_main.location)}>
+                                Download
+                                </button> :
+                                ""
+                            }
+                        </div>
                     </div>
                 ))
             }
+                  <iframe id="my_iframe" style={{ display: "none" }}></iframe>
         </div>
     )
 }
