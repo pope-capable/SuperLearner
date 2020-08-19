@@ -23,6 +23,8 @@
     width: 100%;
     min-height: 100px;
     text-align: left;
+    display: flex;
+    
 }
 
 .ptq{
@@ -54,6 +56,8 @@
     width: 100%;
     min-height: 100px;
     text-align: left;
+    text-align: left;
+    display: flex;
 }
 
 .ptc-f {
@@ -67,6 +71,8 @@
     width: 100%;
     min-height: 100px;
     text-align: left;
+    text-align: left;
+    display: flex;
 }
 
 .team-name {
