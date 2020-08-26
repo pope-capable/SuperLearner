@@ -21,10 +21,15 @@ function OneProject(props) {
 
     return (
         <div className = "ptc">
-            <div className = "team-name">
-                {props.oneProject.project.title} <img onClick = {e => enterProject(props.oneProject.project.id)} className = "enter-icon" src = {enter} />
+            <div className = "hold-project-data">
+                <div className = "team-name">
+                    {props.oneProject.project.title}
+                </div>
+                <div>Created at {Date(props.oneProject.createdAt)}</div>
             </div>
-            <div>Created at {Date(props.oneProject.createdAt)}</div>
+            <div className = "hold-enter">
+                <img onClick = {e => enterProject(props.oneProject.project.id)} className = "enter-icon" src = {enter} />
+            </div>
         </div>
     )
 }
