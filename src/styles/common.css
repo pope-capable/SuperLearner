@@ -225,3 +225,12 @@
     width: 100%;
     text-align: right;
 }
+
+.hold-enter {
+    float: right;
+    width: 20%;
+}
+
+.hold-project-data {
+    width:  80%;
+}
