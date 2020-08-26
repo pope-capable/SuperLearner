@@ -84,8 +84,8 @@ function SideBar(props) {
                     <div onClick = {e => {moveAround("/dashboard")}} className = {setActive(1)}><img className = "img" src = {pro} />Projects</div>
                     <div onClick = {e => {moveAround("/models")}} className = {setActive(2)}><img className = "img" src = {models} />Models</div>
                     <div onClick = {e => {moveAround("/folders")}} className = {setActive(3)}><img className = "img" src = {fold} />Folders</div>
-                    <div onClick = {e => {moveAround("/processes")}} className = {setActive(4)}><img className = "img" src = {process} />Processes</div>
-                    <div onClick = {e => {moveAround("/teams")}} className = {setActive(5)}><img className = "img" src = {team} />Teams</div>
+                    {/* <div onClick = {e => {moveAround("/processes")}} className = {setActive(4)}><img className = "img" src = {process} />Processes</div>
+                    <div onClick = {e => {moveAround("/teams")}} className = {setActive(5)}><img className = "img" src = {team} />Teams</div> */}
                 </div>
                 <div>
                     {data.notifications.map((item, index) => (

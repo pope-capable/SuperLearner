@@ -6,7 +6,7 @@ import { Radio } from 'antd';
 import { FolderGetWithHeaders, folderPostWithHeaders } from '../utils/Externalcalls';
 import { antdNotification } from './misc';
 import FolderContent from '../common/modals/folderContent';
-import ModelListSelect from '../common/modals/modelSelect';
+import ModelListSelect from '../common/modals/modelSelectSuper';
 import ConfirmModal from './modals/simpleConfirm';
 import PredictionModal from "./modals/modelPrediction"
 import {Switch, Select} from 'antd'
