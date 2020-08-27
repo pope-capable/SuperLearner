@@ -12,8 +12,8 @@ function DataPP(props) {
     const initialState = {
         actionSelected: "",
         first: false,
-        actions: [{name: "Missing Data", value: 1}, {name: "Fix Outliners", value: 2}, {name: "Feature Selection", value: 3}],
-        fsOptions: [{name: "RFA", value: 1}, {name: "BORUTA", value: 2}],
+        actions: [{name: "Missing Data", value: 1}, {name: "Fix Outliers", value: 2}, {name: "Feature Selection", value: 3}],
+        fsOptions: [{name: "RFE", value: 1}, {name: "BORUTA", value: 2}],
         isSubmitting: false,
         value: 0,
         fsValue: 0,

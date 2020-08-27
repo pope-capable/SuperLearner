@@ -111,9 +111,9 @@ function ModelListSelect(props) {
                                 ))
                             }
                         </div>
-                        <div><button disabled = {data.isloading} onClick = {props.cancel} className = "next-button">Next</button></div>
-                        </div> 
-                        </div>
+                    <div><button disabled = {data.isloading} onClick = {props.cancel} className = "next-button">Next</button></div>
+                </div> 
+            </div>
         </div>
     )
 }

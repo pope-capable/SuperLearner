@@ -4,13 +4,16 @@ import file from '../assets/images/file.png'
 import { Radio } from 'antd';
 import { FolderGetWithHeaders, folderPostWithHeaders } from '../utils/Externalcalls';
 import { antdNotification } from './misc';
+import loadIcon from "../assets/images/load.gif"
+
 
 
 function LiveProcesses(props) {
 
     const initialState = {
         projectId: props.project,
-        processes: []
+        processes: [],
+        loading: true
       };
 
     useEffect(() => {
@@ -32,9 +35,9 @@ function LiveProcesses(props) {
     }
 
     function getProcesses() {
+        setdata({...data, loading: true})
         FolderGetWithHeaders(`process/all/${props.project}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(processesLive => {
-            setdata({...data, processes: processesLive.data.data})
-            console.log("MEEk", processesLive)
+            setdata({...data, processes: processesLive.data.data, loading: false})
         }).catch(error => {
             antdNotification("error", "Fetch Failed", "Error fetching processes, please ensure a stable connection and reload screen")
         })
@@ -46,6 +49,17 @@ function LiveProcesses(props) {
 
     return(
         <div className = "dpp-view">
+            <div className = "switch-model-view">
+                <button className = "refresh-button" onClick = {() => getProcesses()}>
+                    Refresh
+                </button>
+            </div>
+            {
+                data.loading ?
+                <div className = "loader-container">
+                    <img className = "loader-image" src = {loadIcon} />
+                </div> :
+                <div>
             {
                 data.processes.map((item, index) => (
                     <div className = {classProcesses(item.status)}>
@@ -69,6 +83,8 @@ function LiveProcesses(props) {
                     </div>
                 ))
             }
+            </div>
+}
                   <iframe id="my_iframe" style={{ display: "none" }}></iframe>
         </div>
     )

@@ -95,7 +95,7 @@ function ProjectProcesses(props) {
                     <img className = "loader-image" src = {loadIcon} />
                 </div> : 
                 <div className = "project-summary">
-                    <div className = "project-message"><img className = "cloud-image" src ={cloud} /> Kindly Select one of the options to continue</div>
+                    <div className = "project-message"><img className = "cloud-image" src ={cloud} /> Select one of the options to continue</div>
                     {showComponent()}
                 </div>
             }
