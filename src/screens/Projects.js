@@ -14,7 +14,7 @@ function Projects() {
     const initialState = {
         user: user,
         isLoading: true,
-        projects: [],
+        projects: [{id: "1234"}],
         notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}]
     };
 
@@ -39,7 +39,7 @@ function Projects() {
     
     return (
         <div className = "page">
-            <SideBar active = {1} notifications = {data.notifications} />
+            <SideBar active = {1} notype = {"project"} project = {data.projects[0].id} wait = {data.isLoading}/>
             <div className = "project-view">
             <div className = "view-header">
             <div>Projects</div>

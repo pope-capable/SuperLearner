@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Progress, Avatar } from 'antd';
 import "../styles/sidebar.css"
-import { getWithHeaders } from '../utils/Externalcalls';
+import { getWithHeaders, FolderGetWithHeaders } from '../utils/Externalcalls';
 import { AuthenticationContext } from "../utils/reducer";
 import pro from "../assets/images/project.png"
 import models from "../assets/images/tred.png"
@@ -10,11 +10,18 @@ import process from "../assets/images/proc.png"
 import team from "../assets/images/team.png"
 import logout from "../assets/images/out.png"
 import { antdNotification } from './misc';
+import io from 'socket.io-client';
+
+import { subscribeToTimer } from "../utils/socket"
 
 
 function SideBar(props) {
+
     const { dispatch } = React.useContext(AuthenticationContext);
-    const user = JSON.parse(localStorage.getItem("user"))
+    var user = JSON.parse(localStorage.getItem("user"))
+    var userId = user.id
+    const socket = io(`http://localhost:5000`, { query: `userId=${userId}` });
+
     // initialize state
     const initialState = {
         user: user,
@@ -27,13 +34,26 @@ function SideBar(props) {
       };
 
       const [data, setdata] = useState(initialState)
-
+      
       useEffect(() => {
         setdata({...data, isLoading: true})
         getWithHeaders(`disk/get-usage/${data.user.id}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(diskUsage => {
             setdata({...data, disk: diskUsage.data.data, isLoading: false})
         })
-      }, [])
+        // getNotifications()
+      }, [data])
+
+        
+    //   socket.on("Notification", (data) => {
+    //     getNotifications()
+    //   });
+
+
+      function getNotifications() {
+            FolderGetWithHeaders(`notifications/all/${props.project}/${props.notype}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(newNotification => {
+                setdata({...data, notifications: newNotification.data.data, isLoading: false})
+            })
+      }
 
       function setActive(data) {
           if(data == props.active){

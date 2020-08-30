@@ -27,6 +27,8 @@ const initialState = {
 
 function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
+
+
   return (
     <AuthenticationContext.Provider value={{state,  dispatch}}    >
       <Router>
