@@ -39,7 +39,7 @@ function Projects() {
     
     return (
         <div className = "page">
-            <SideBar active = {1} notype = {"project"} project = {data.projects[0].id} wait = {data.isLoading}/>
+            <SideBar active = {1} notype = {"project"} project = {data.user.id} user = {true}/>
             <div className = "project-view">
             <div className = "view-header">
             <div>Projects</div>

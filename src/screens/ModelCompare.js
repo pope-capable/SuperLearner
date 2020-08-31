@@ -120,7 +120,7 @@ function ModelComparison(props) {
 
     return (
         <div className = "page">
-            <SideBar active = {2} notifications = {data.notifications} />
+            <SideBar active = {2} notype = {"process"} project = {props.match.params.slug} />
             <div className = "project-view">
                 <div className = "view-header">
                     <div>Compare Models in: {data.isLoading ? "fetching project information" : props.match.params.slug2}</div>

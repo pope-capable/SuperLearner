@@ -6,6 +6,7 @@ import power from "../assets/images/power.png"
 import space from "../assets/images/tele.png"
 import wind from "../assets/images/wind.png"
 import graph from "../assets/images/growth.png"
+import crane from "../assets/images/Crane.png"
 
 
 
@@ -16,16 +17,16 @@ function Home() {
         <div className = "home">
           <Navbar />
           <section className = "section-1">
+          <div>
+              <img src = {crane} />
+            </div>
             <div className = "main-content">
               <div className = "super">Super Learner is an online machine learning tool that provides 99.99% accuracy on medical diagnosis of clinical issues in infants</div>
               <div className = "advantage">Take advantage of the system defined models or go a step further by building your own models.</div>
               <button className = "get-started">Get started</button>
             </div>
-            <div>
-              <img src = {robot} />
-            </div>
           </section>
-          <section className = "section-2">
+          {/* <section className = "section-2">
           <div className = "one-application">
               <img src = {med} />
               <div className = "application-title">Medical</div>
@@ -54,7 +55,7 @@ function Home() {
                 Space exploration can be made a lot more efficient by mmodel activivties before D-day, this enables enginners mitigate fail points.
               </div>
             </div>
-          </section>
+          </section> */}
           <section className = "section-3">
             <div>
 

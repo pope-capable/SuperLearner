@@ -20,13 +20,11 @@ function SideBar(props) {
     const { dispatch } = React.useContext(AuthenticationContext);
     var user = JSON.parse(localStorage.getItem("user"))
     var userId = user.id
-    const socket = io(`http://localhost:5000`, { query: `userId=${userId}` });
 
     // initialize state
     const initialState = {
         user: user,
         disk: {},
-        notifications: [{type: "project", content: "You currently do not have any project, create new project to continue"}],
         user_name: "",
         email: "",
         isLoading: true,
@@ -34,25 +32,46 @@ function SideBar(props) {
       };
 
       const [data, setdata] = useState(initialState)
+      const [notifications, setnotifications] = useState([{type: "project", content: "Loading notifications..."}])
       
       useEffect(() => {
         setdata({...data, isLoading: true})
         getWithHeaders(`disk/get-usage/${data.user.id}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(diskUsage => {
             setdata({...data, disk: diskUsage.data.data, isLoading: false})
         })
-        // getNotifications()
-      }, [data])
+        getNotifications()
+        const interval = setInterval(() => getNotifications(), 30000)
+        return () => {
+          clearInterval(interval);
+        }
+        // const socket = io(`http://localhost:5000`, { query: `userId=${userId}` });
+    }, [])
 
         
     //   socket.on("Notification", (data) => {
     //     getNotifications()
     //   });
 
-
       function getNotifications() {
-            FolderGetWithHeaders(`notifications/all/${props.project}/${props.notype}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(newNotification => {
-                setdata({...data, notifications: newNotification.data.data, isLoading: false})
+          if(props.user){
+            FolderGetWithHeaders(`notifications/all_user/${props.project}/${props.notype}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(newNotification => {
+                var latestNotifications = newNotification.data.data
+                if(latestNotifications.length > 1){
+                    setnotifications( newNotification.data.data)
+                }else{
+                    setnotifications([{type: "project", content: "Open a project to view latest activities."}])
+                }
             })
+          }else{
+            FolderGetWithHeaders(`notifications/all/${props.project}/${props.notype}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(newNotification => {
+                var latestNotifications = newNotification.data.data
+                if(latestNotifications.length > 1){
+                    setnotifications( newNotification.data.data)
+                }else{
+                    setnotifications([{type: "project", content: "Open a project to view latest activities."}])
+                }
+            })
+          }
       }
 
       function setActive(data) {
@@ -108,7 +127,7 @@ function SideBar(props) {
                     <div onClick = {e => {moveAround("/teams")}} className = {setActive(5)}><img className = "img" src = {team} />Teams</div> */}
                 </div>
                 <div>
-                    {data.notifications.map((item, index) => (
+                    {notifications.map((item, index) => (
                         <div className = {colorNotification(item)}>
                             {item.content}
                         </div>

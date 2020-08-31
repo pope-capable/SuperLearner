@@ -50,7 +50,7 @@ function Models() {
 
     return (
         <div className = "page">
-            <SideBar active = {2} />
+            <SideBar active = {2} notype = {"project"} project = {data.user.id} user = {true}/>
             <div  className = "project-view">
                 <div className = "view-header">
                     <div>Project models</div>

@@ -84,7 +84,7 @@ function ProjectSpace(props) {
 
     return (
         <div className = "page">
-            <SideBar active = {1} notifications = {data.notifications} />
+            <SideBar active = {1} notype = {"process"} project = {props.match.params.slug} />
             <div className = "project-view">
                 <div className = "view-header">
                     <div>Project: {data.isLoading ? "fetching project information" : data.project.title}</div>

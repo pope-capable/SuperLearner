@@ -2,16 +2,16 @@ import axios from "axios";
 
 // team-user url
 
-const baseUrl = "http://localhost:8000/"
-// const baseUrl = "https://supper-learner-team.herokuapp.com/";
+// const baseUrl = "http://localhost:8000/"
+const baseUrl = "https://supper-learner-team.herokuapp.com/";
 
 // project url
 // const projectBaseUrl = "http://localhost:8000/"
 const projectBaseUrl = "https://project-microservice.herokuapp.com/";
 
 // folder url
-// const folderBaseUrl = "https://main-folder-ms.herokuapp.com/";
-const folderBaseUrl = "http://localhost:5000/"
+const folderBaseUrl = "https://main-folder-ms.herokuapp.com/";
+// const folderBaseUrl = "http://localhost:5000/"
 
 export function simplePost(location, data) {
   axios.post(`${baseUrl}/${location}`, data).then((response) => {

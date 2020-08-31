@@ -51,7 +51,7 @@ function Folders() {
 
     return (
         <div className = "page">
-            <SideBar active = {3} />
+            <SideBar active = {3} notype = {"folder"} project = {data.user.id} user = {true} />
             <div  className = "project-view">
                 <div className = "view-header">
                     <div>Project Folders</div>
