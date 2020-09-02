@@ -65,7 +65,7 @@ function SideBar(props) {
           }else{
             FolderGetWithHeaders(`notifications/all/${props.project}/${props.notype}`, {"token": JSON.parse(localStorage.getItem("token"))}).then(newNotification => {
                 var latestNotifications = newNotification.data.data
-                if(latestNotifications.length > 1){
+                if(latestNotifications.length > 0){
                     setnotifications( newNotification.data.data)
                 }else{
                     setnotifications([{type: "project", content: "Open a project to view latest activities."}])
@@ -91,7 +91,7 @@ function SideBar(props) {
       function colorNotification(data) {
           if(data.type == "project"){
               var useClass = "project-note"
-          }else if(data.type == "team"){
+          }else if(data.type == "process"){
               var useClass = "team-note"
           }
           return useClass
