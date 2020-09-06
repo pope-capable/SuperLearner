@@ -47,7 +47,7 @@ function SideBar(props) {
         // const socket = io(`http://localhost:5000`, { query: `userId=${userId}` });
     }, [])
 
-        
+        //${props.project}
     //   socket.on("Notification", (data) => {
     //     getNotifications()
     //   });
@@ -70,6 +70,8 @@ function SideBar(props) {
                 }else{
                     setnotifications([{type: "project", content: "Open a project to view latest activities."}])
                 }
+            }).catch(error => {
+
             })
           }
       }
@@ -126,7 +128,7 @@ function SideBar(props) {
                     {/* <div onClick = {e => {moveAround("/processes")}} className = {setActive(4)}><img className = "img" src = {process} />Processes</div>
                     <div onClick = {e => {moveAround("/teams")}} className = {setActive(5)}><img className = "img" src = {team} />Teams</div> */}
                 </div>
-                <div>
+                <div className = "hold-notes">
                     {notifications.map((item, index) => (
                         <div className = {colorNotification(item)}>
                             {item.content}

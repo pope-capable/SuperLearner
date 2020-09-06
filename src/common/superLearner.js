@@ -16,7 +16,7 @@ function SuperlearnerTabView(props) {
         misingDataPercentage: 0,
         openFolder: false,
         uploads: [],
-        metaModel: [{name: "Logistic regression", value: 1}, {name: "Extra tree", value: 2}],
+        metaModel: [{name: "Logistic regression", value: 1}, {name: "Random Forest", value: 2}],
         showModalSelect: false,
         selectedMeta: null,
         compositeModels: [],
